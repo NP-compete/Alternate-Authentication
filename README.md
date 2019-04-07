@@ -8,5 +8,5 @@
 
 **Problem Code:**      RV3
 
-##Initial Idea:
+## Initial Idea:
 
