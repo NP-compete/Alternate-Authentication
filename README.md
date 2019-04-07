@@ -75,9 +75,9 @@ Add additional notes about how to deploy this on a live system
 
 ## Authors
 
-* **Soham Dutta** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Soham Dutta** - [NP-compete](https://github.com/NP-compete)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/NP-compete/Alternate-Authentication/contributors) who participated in this project.
 
 ## License
 
