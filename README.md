@@ -64,6 +64,7 @@ Add additional notes about how to deploy this on a live system
 * **Shivam Gangwar** - [shivamHCU](https://github.com/shivamHCU)
 * **Abhishek Verma** - [abhishek-verma](https://github.com/abhishek-verma)
 * **Gaurav** - [gaurav476](https://github.com/gaurav476)
+
 See also the list of [contributors](https://github.com/NP-compete/Alternate-Authentication/contributors) who participated in this project.
 
 ## License
