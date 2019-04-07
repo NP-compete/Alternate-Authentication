@@ -57,7 +57,11 @@ Add additional notes about how to deploy this on a live system
 ## Authors
 
 * **Soham Dutta** - [NP-compete](https://github.com/NP-compete)
-
+* **Nandini Soni** - [nandini8](https://github.com/nandini8)
+* **Mridul Gain** - [mridulgain](https://github.com/mridulgain)
+* **Shivam Gangwar** - [shivamHCU](https://github.com/shivamHCU)
+* **Abhishek Verma** - [abhishek-verma](https://github.com/abhishek-verma)
+* **Gaurav** - [](https://github.com/)
 See also the list of [contributors](https://github.com/NP-compete/Alternate-Authentication/contributors) who participated in this project.
 
 ## License
