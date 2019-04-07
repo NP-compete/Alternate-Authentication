@@ -5,8 +5,8 @@ if (typeof localStorage === "undefined" || localStorage === null) {
   localStorage = new LocalStorage('./scratch');
 }
 
-const onPremise = require('../../OnPrem Module/onPremise');
-const blockchain = require('../../BlockChain/passwordManager');
+const onPremise = require('../../Home/OnPrem/onPremise');
+const blockchain = require('../../Enterprise/BlockChain/passwordManager');
 
 const masterPasswordKey = 'masterPassword';
 
