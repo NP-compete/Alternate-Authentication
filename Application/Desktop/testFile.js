@@ -3,18 +3,23 @@ const backendController = require('./backend/backendController');
 
 let authId;
 
-let test = document.getElementById("test"); 
+let test = document.getElementById("test");
 
 async function requestOtpClicked(phNo) {
   console.log('otp requested: ' + phNo);
   ipcRenderer.send('otp-requested', phNo);
 }
-
 async function loginClicked(otp, masterPasssword) {
   console.log('login Clicked: ' + otp);
   ipcRenderer.send('login-clicked', {otp, masterPasssword});
   console.log('login Clicked sent: ');
 }
+
+ipcRenderer.on('invalid-otp', (event, arg) => {
+    console.log("wrong otp, logging out...");
+    // wrongOtp(); Correct
+    getData();
+})
 
 ipcRenderer.on('logged-in', (event, arg) => {
     console.log("logged in, getting data...");
@@ -26,6 +31,14 @@ ipcRenderer.on('data-received', (event, data) => {
 })
 
 
+async function wrongOtp(){
+  var label = document.getElementById("wrong-otp");
+  label.innerHTML = "Wrong OTP";
+}
+
+async function dropDownChange(domain, id, security) {
+  ipcRenderer.send('change-security', {domain, id, security});
+}
 
 async function getData() {
 
@@ -36,34 +49,29 @@ async function getData() {
 
     let idsContainer = document.getElementById("idsContainer");
     let html = "";
-    
-    html = "<ul>";
-    for(var id of ids) {
-      html += '<li class="list-group-item">';
-      html += "Domain: " + id.domain + " | ";
-      html += "Username: " + id.id + " | ";
-      html += "Security Level: " + id.securityLevel;
 
-      html += '<select id="" onchange="dropDownChange()">';
+    html = "<table class='table'><tbody>";
+    for(var id of ids) {
+
+      html += '<tr>';
+      html += "<td>Domain: " + id.domain + "</td>";
+      html += "<td>Username: " + id.id + "</td>";
+      html += "<td>Security Level: " + id.securityLevel + " ";
+      html += `<td><select onchange="dropDownChange('${id.domain}, ${id.id}, ${id.securityLevel}')">`;
       if(id.securityLevel != 0)
         html += '<option value="0">On Premise</option>'
       if(id.securityLevel != 1)
         html += '<option value="1">Google Drive</option>'
       if(id.securityLevel != 3)
         html += '<option value="3">Blockchain</option>'
-      bhtml += '</select>';
+      html += '</select></td>';
 
-      html += ''
-    
-      html += "</li>";
-    }  
+      html += '';
+
+    }
     html += "</ul>";
 
     idsContainer.innerHTML = html;
 
     console.log(JSON.stringify(ids));
-}
-
-function dropDownChange(domain, id) {
-  
 }

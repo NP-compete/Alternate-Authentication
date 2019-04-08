@@ -75,6 +75,7 @@ function sendOtp(phone_no, country_code) {
  */
 
 function verifyOtp(otp, auth_id) {
+	console.log("verify otp called");
 
 	return new Promise((resolve, reject) => {
 
@@ -91,9 +92,12 @@ function verifyOtp(otp, auth_id) {
 			},
 			json: true
 		};
-	
+
 		request(options, function (error, response, body) {
 			if (error) throw new Error(error);
+
+				console.log("Verify otp promise returned: " + JSON.stringify(body));
+
 			if (!(body.success)) {
 				reject({
 					"log": "Invalid otp",
@@ -101,11 +105,12 @@ function verifyOtp(otp, auth_id) {
 					"result": body
 				});
 			}
-			resolve({
-				"log": "Successfully verfied otp",
-				"flag": constants.responseFlags.ACTION_COMPLETE,
-				"result": body
-			});
+				resolve({
+					"log": "Successfully verfied otp",
+					"flag": constants.responseFlags.ACTION_COMPLETE,
+					"result": body
+				});
+
 		});
 	});
 }

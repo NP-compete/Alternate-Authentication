@@ -5,8 +5,8 @@ if (typeof localStorage === "undefined" || localStorage === null) {
   localStorage = new LocalStorage('./scratch');
 }
 
-const onPremise = require('../../OnPrem Module/onPremise');
-const blockchain = require('../../BlockChain/passwordManager');
+const onPremise = require('../../../Home/OnPrem/onPremise');
+const blockchain = require('../../../Enterprise/BlockChain/passwordManager');
 
 const masterPasswordKey = 'masterPassword';
 
@@ -51,7 +51,7 @@ async function getIds() {
   let ids = await getOnPremIds();
   ids = ids.concat(await getGoogleDriveIds());
   // ids = ids.concat(await getTrustedDeviceIds());
-  ids = ids.concat(await getBlockchainIds());
+  // ids = ids.concat(await getBlockchainIds());
 
   // let username = "testUserName@testdomain.com"
   // let domain = 'testDomain.com'

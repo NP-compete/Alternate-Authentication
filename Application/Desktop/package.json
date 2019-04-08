@@ -23,6 +23,8 @@
     "electron": "^4.0.6"
   },
   "dependencies": {
+    "authy": "^1.4.0",
+    "electron": "^4.1.4",
     "electron-context-menu": "^0.9.1",
     "electron-packager": "^8.7.2",
     "electron-tabs": "^0.7.1"

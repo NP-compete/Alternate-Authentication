@@ -76,17 +76,18 @@ ipcMain.on('otp-requested', async function (event, phno) {
 // Event handler for synchronous incoming messages
 ipcMain.on('login-clicked', async (event, info) => {
 
-  event.sender.send('logged-in');
-  console.log("otp entered"); 
+  console.log("otp entered " + JSON.stringify(info));
 
   // let verified = true;
-  let verified = await otpAuth.verifyOtp(info.otp, otpAuthId);
+  try {
 
-  if(verified)
-    event.sender.send('logged-in');
-  else
+    let verified = await otpAuth.verifyOtp(info.otp, otpAuthId);
+    console.log("Verified value " + verified);
     event.sender.send('logged-in');
 
+  }catch {
+    event.sender.send('invalid-otp');
+  }
 })
 
 async function getAndSendIds(callback) {
@@ -104,7 +105,16 @@ ipcMain.on('data-request', function (event, vars) {
   });
 })
 
-// 
+ipcMain.on('change-security', async (event, info) => {
+
+  console.log("security changed " + JSON.stringify(info));
+  backendController.addId(info.domain, info.id, info.password, info.security);
+  backendController.deleteId(info.domain, info.id, info.security);
+
+})
+
+
+//
 //     function showList(){
 //       let ids = getIds();
 //        console.log(ids);
