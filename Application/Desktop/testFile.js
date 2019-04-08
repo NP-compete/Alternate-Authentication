@@ -6,13 +6,30 @@ let authId;
 let test = document.getElementById("test");
 
 async function requestOtpClicked(phNo) {
-  console.log('otp requested: ' + phNo);
-  ipcRenderer.send('otp-requested', phNo);
+  if(phNo == ""){
+    var label = document.getElementById("wrong-otp");
+    label.innerHTML = "Invalid Phone Number";
+  }
+  else{
+    var label = document.getElementById("wrong-otp");
+    label.innerHTML = "";
+    console.log('otp requested: ' + phNo);
+    ipcRenderer.send('otp-requested', phNo);
+  }
+
 }
 async function loginClicked(otp, masterPasssword) {
   console.log('login Clicked: ' + otp);
-  ipcRenderer.send('login-clicked', {otp, masterPasssword});
-  console.log('login Clicked sent: ');
+  if(otp == "" || masterPassword == ""){
+    var label = document.getElementById("wrong-otp");
+    label.innerHTML = "Invalid OTP or Master Password";
+  }
+  else{
+    var label = document.getElementById("wrong-otp");
+    label.innerHTML = "";
+    ipcRenderer.send('login-clicked', {otp, masterPasssword});
+    console.log('login Clicked sent: ');
+  }
 }
 
 ipcRenderer.on('invalid-otp', (event, arg) => {

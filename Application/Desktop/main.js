@@ -113,6 +113,12 @@ ipcMain.on('change-security', async (event, info) => {
 
 })
 
+ipcMain.on('invalid', (event, data) => {
+  let test = document.getElementById("test");
+    var label = document.getElementById("wrong-otp");
+    label.innerHTML = "Invalid Data entry";
+})
+
 
 //
 //     function showList(){
