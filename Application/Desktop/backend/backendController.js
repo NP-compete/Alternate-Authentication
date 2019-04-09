@@ -127,6 +127,10 @@ async function getMasterPassword() {
   return 'master@123';//localStorage.getItem(masterPasswordKey);
 }
 
+async function getRecord() {
+  return '';//get whole record, domain, password, id, security leve
+}
+
 module.exports = {
   requestOtp,
   verifyOtp,
@@ -135,6 +139,7 @@ module.exports = {
   getPasswordForId,
   changePasswordForId,
   deleteId,
+  getRecord,
   setMasterPassword,
   createServer,
   connect,
