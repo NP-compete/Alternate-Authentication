@@ -65,33 +65,9 @@ var express = require('express');
 			else if(req.body.type == 'login'){
 				console.log("");
 				console.log("LOGIN request recived");
-					//checks if the user exist
-				var user = req.body.user;
-				findUser( function handleUserAfterFind(array){
-					if(array == undefined){
-					 	res.send("undefined");
-					 	return;
-					 }
-					//if exist, hashes the password and salt and checks equality
-					else if(array.length > 0){
-						var userInfo = array[0];
-						var hhPass0 = sjcl.hash.sha256.hash(req.body.hPass0+userInfo.salt);
-						hhPass0 = sjcl.codec.base64.fromBits(hhPass0);
-						if(hhPass0 == userInfo.password){ //if passwords match
-							console.log("user "+userInfo.username +" connected succesfuly");
-							res.send("success");
-						}
-					 	else{//if wrong password
-					 		console.log("user "+userInfo.username +" inserted wrong password");
-							res.send("noPass");
-					 	}
-					 }
-					else{//if username not in database
-						console.log("username "+user +" was not found");
-					 	res.send("noUser");
-					 }
-				}
-				,user)
+
+				console.log("user "+userInfo.username +" connected succesfuly");
+				res.send("success");
 			}
       
   		    /*

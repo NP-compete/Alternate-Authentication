@@ -18,11 +18,11 @@ port.onMessage.addListener(function(msg) {
 		$("#connectMessage").html("You are now connected with user: " + msg.username);
 	}
 
-	if(msg.type == "tagNotOk"){
-		$("#img").attr("src","alert.png");
-		$("body").css("background-color","red");
-		$("#connectMessage").html(msg.username + ", Incorrect Tag!");
-	}
+	// if(msg.type == "tagNotOk"){
+	// 	$("#img").attr("src","alert.png");
+	// 	$("body").css("background-color","red");
+	// 	$("#connectMessage").html(msg.username + ", Incorrect Tag!");
+	// }
 });
 
 //checking if user is already connected
@@ -32,9 +32,9 @@ function connect(){
 	var username = "testUser";
 	var password = "key";
 
-	var hPass0 = sjcl.codec.base64.fromBits(sjcl.hash.sha256.hash(password+'0'));
-	var key1 = sjcl.hash.sha256.hash(password+'1');
-	var key2 = sjcl.hash.sha256.hash(password+'2');
+	// var hPass0 = sjcl.codec.base64.fromBits(sjcl.hash.sha256.hash(password+'0'));
+	// var key1 = sjcl.hash.sha256.hash(password+'1');
+	// var key2 = sjcl.hash.sha256.hash(password+'2');
 
 	/*
 		sending the hashed passwords to the server

@@ -47,22 +47,7 @@ async function getBlockchainIds() {
 async function getIds() {
   let ids = await getOnPremIds();
   ids = ids.concat(await getGoogleDriveIds());
-  // ids = ids.concat(await getTrustedDeviceIds());
   ids = ids.concat(await getBlockchainIds());
-
-  // let username = "testUserName@testdomain.com"
-  // let domain = 'testDomain.com'
-  // let security_lvl = 3
-
-  // let ids =  [{'domain' : domain, 'username' : username, 'security_level' : security_lvl},
-  // {'domain' : domain, 'username' : username, 'security_level' : security_lvl},
-  // {'domain' : domain, 'username' : username, 'security_level' : security_lvl},
-  // {'domain' : domain, 'username' : username, 'security_level' : security_lvl},
-  // {'domain' : domain, 'username' : username, 'security_level' : security_lvl},
-  // {'domain' : domain, 'username' : username, 'security_level' : security_lvl},
-  // {'domain' : domain, 'username' : username, 'security_level' : security_lvl},
-  // {'domain' : domain, 'username' : username, 'security_level' : security_lvl},
-  // {'domain' : domain, 'username' : username, 'security_level' : security_lvl}];
   return ids;
 }
 

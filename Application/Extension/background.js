@@ -16,6 +16,7 @@ var username, key1, key2, tag, passwordsString;
            if(msg.type == "disconnected"){
            	isConnected = false;
            }
+           
            if(msg.type == "login"){
            		isConnected = true;
            		username = msg.username;
