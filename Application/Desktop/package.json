@@ -24,10 +24,12 @@
   },
   "dependencies": {
     "authy": "^1.4.0",
+    "csprng": "^0.1.2",
     "electron": "^4.1.4",
     "electron-context-menu": "^0.9.1",
     "electron-packager": "^8.7.2",
     "electron-tabs": "^0.7.1",
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "sjcl": "^1.0.8"
   }
 }
