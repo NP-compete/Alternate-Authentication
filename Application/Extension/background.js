@@ -8,9 +8,8 @@ var passwordsString;
            console.log("message recieved: " + msg.type);
 
            if(msg.type == "isConnected"){
-           		if(isConnected){port.postMessage({type: "connected"});} 
+           		if(isConnected){port.postMessage({type: "connected"});}
            		else {port.postMessage({type: "notConnected"});}
-
            }
 
            if(msg.type == "disconnected"){

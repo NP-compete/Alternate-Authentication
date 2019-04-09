@@ -23,33 +23,31 @@ running at document start
  */
 
 function onLoad() {
-  if (username != null) { //if connected
-    console.log("user connected");
-    getPasswordsAndTag(function (response) {
-      response = JSON.parse(response);
-      var jsonPasswords = JSON.parse(response.passwords);
-      console.log("got pass from server: " + response.passwords);
-      if (response.passwords == "") { //if no passwords stored for this user
-        console.log("no passwords for this user");
-        return;
+  console.log("user connected");
+  getPasswords(function (response) {
+    response = JSON.parse(response);
+    var jsonPasswords = JSON.parse(response.passwords);
+    console.log("got pass from server: " + response.passwords);
+    if (response.passwords == "") { //if no passwords stored for this user
+      console.log("no passwords for this user");
+      return;
+    }
+
+    if (isDocHasPassInput()) {//if the doc has input fields
+      console.log("doc has pass input");
+      //checking if passwords exist for this specific hostname. return index of passwords or -1 if not exist.
+      var index = findIndexOfPassDetails(hostname, jsonPasswords);
+      if (index > -1) {
+        console.log("found password for this hostname");
+        fillFields(jsonPasswords[index]);
+
       }
-
-      if (isDocHasPassInput()) {//if the doc has input fields
-        console.log("doc has pass input");
-        //checking if passwords exist for this specific hostname. return index of passwords or -1 if not exist.
-        var index = findIndexOfPassDetails(hostname, jsonPasswords);
-        if (index > -1) {
-          console.log("found password for this hostname");
-          fillFields(jsonPasswords[index]);
-
-        }
-        else {
-          console.log("no passwords found for this hostname");
-        }
+      else {
+        console.log("no passwords found for this hostname");
       }
+    }
 
-    });
-  }
+  });
 }
 
 

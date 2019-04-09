@@ -14,14 +14,12 @@ port.onMessage.addListener(function(msg) {
 	if(msg.type == "connected"){
 		$("#connected").show();
 		$("#notConnected").hide();
-		$("#connectMessage").html("You are now connected with user: " + msg.username);
 	}
 
 });
-//checking if user is already connected
-port.postMessage({type: "isConnected"});
 
 function connect(){
+	console.log("Abcd");
 	var username = "testUser";
 	var password = "key";
 
@@ -39,13 +37,14 @@ function connect(){
 	function processRequest(e) {
 		if (xhr.readyState == 4 && xhr.status == 200) {
 			var response = xhr.responseText;
+			console.log("Superman");
 
 			if (response == "success"){
-				document.getElementById("connectMessage").innerHTML = (("Connection succesful, you will be redirected in 3 second").bold()).fontcolor("green");
+				console.log("Batman");
+				document.getElementById("connectMessage").innerHTML = (("Connection succesful").bold()).fontcolor("green");
 				port.postMessage({type: "login"});
 				port.postMessage({type: "updateData"});
-				setTimeout(disconnectedToConnected, 3000);
-				$("#connectMessage").html("You are now connected with user: "+username);
+				disconnectedToConnected();
 			}
 		}
 	}
@@ -53,11 +52,15 @@ function connect(){
 }
 
 function disconnectedToConnected(){
-	$("#login").fadeOut('slow', function () {$("#connected").fadeIn('slow')});
+	$("#connected").show();
+	$("#notConnected").hide();
 }
 
 function connectedToDisconnected(){
-	$("#connected").fadeOut('slow', function () {$("#login").fadeIn('slow')});
+	$("#connected").hide();
+	$("#notConnected").show();
 }
 
 connect();
+//checking if user is already connected
+port.postMessage({type: "isConnected"});
