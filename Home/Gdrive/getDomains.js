@@ -173,10 +173,6 @@ function getDomainsCallback(auth,masterPassword){
 }
 
 
-getDoamins('master@123').then(result => {
-  for(var i = 0; i < result.length; ++i){
-    console.log(result[i]);
-  }
-}).catch(e => {
-  console.log(e.message);
-});
+module.exports = {
+  getDoamins
+}

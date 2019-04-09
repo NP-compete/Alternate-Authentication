@@ -197,11 +197,6 @@ function getAccounts(accountName,masterPassword){
     return accounts;
 }
 
-
-getIds('master@123').then(result => {
-  for(var i = 0; i < result.length; ++i){
-    console.log(result[i].domain,"\t",result[i].id,"\t",result[i].password,"\t",result[i].securityLevel);
-  }
-}).catch(e => {
-  console.log(e);
-});
+module.exports = {
+  getIds
+}

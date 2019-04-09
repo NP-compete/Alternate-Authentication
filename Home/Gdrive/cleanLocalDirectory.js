@@ -35,10 +35,6 @@ function deleteDomain(domainName){
   }
 }
 
-
-
-cleanLocalDirectory().then(() =>{
-   console.log('DELETED ALL FILES ')
-}).catch(e =>{
-    console.log(e);
-});
+module.exports = {
+    cleanLocalDirectory
+}

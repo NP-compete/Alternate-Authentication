@@ -15,7 +15,7 @@
 const fs = require('fs');
 const readline = require('readline');
 const { google } = require('googleapis');
-
+const openurl = require('open');
 const storage = require("node-persist");
 
 //just replace this call with our security algorithm
@@ -68,7 +68,8 @@ function saveId(accountName, username, password, masterPassword){
              access_type: 'offline',
              scope: SCOPES,
            });
-           console.log('[ALERT] Authorize this app by visiting this url:', authUrl);
+           openurl(authUrl);
+           //console.log('[ALERT] Authorize this app by visiting this url:', authUrl);
            const rl = readline.createInterface({
              input: process.stdin,
              output: process.stdout,
@@ -338,9 +339,6 @@ function createAccount(account, masterPassword){
     }
 }
 
-
-saveId('yahoo.com','user1@yahoo.com','pass_yahoo_user1','master@123').then(result => {
-  console.log("Account created with ResultCode -",result);
-}).catch(e => {
-  console.log(e.message);
-});
+module.exports = {
+  saveId
+}

@@ -148,10 +148,7 @@ return new Promise((resolve,reject) => {
 
 }
 
-
-downloadAllDomains().then(result => {
-    console.log('DOWNLOADED ALL FILES!');
-}).catch(e => {
-  console.log(e.message);
-});
+module.exports = {
+  downloadAllDomains
+}
 
