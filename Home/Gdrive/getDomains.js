@@ -68,7 +68,7 @@ return new Promise((resolve,reject) => {
 }
 
 
-function callableGetDoamin(masterPassword){
+function getDoamins(masterPassword){
   return new Promise((resolve,reject) => {
     // Load client secrets from a local file.
     fs.readFile('credentials.json', (err, content) => {
@@ -173,10 +173,6 @@ function getDomainsCallback(auth,masterPassword){
 }
 
 
-callableGetDoamin('master@123').then(result => {
-  for(var i = 0; i < result.length; ++i){
-    console.log(result[i]);
-  }
-}).catch(e => {
-  console.log(e.message);
-});
+module.exports = {
+  getDoamins
+}

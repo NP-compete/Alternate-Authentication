@@ -11,7 +11,7 @@ storage.initSync();
 
 
 
-function deleteAllDomain(){
+function cleanLocalDirectory(){
   return new Promise((resolve,reject) =>{
     try{
       let result  = storage.keys();
@@ -35,10 +35,6 @@ function deleteDomain(domainName){
   }
 }
 
-
-
-deleteAllDomain().then(() =>{
-   console.log('DELETED ALL FILES ')
-}).catch(e =>{
-    console.log(e);
-});
+module.exports = {
+    cleanLocalDirectory
+}

@@ -226,8 +226,6 @@ function getAccounts(accountName,masterPassword){
 }
 
 
-getPasswordForId('master@123','facebook.com','user2@facebook.com').then(result => {
-    console.log(result);
-}).catch(e => {
-  console.log(e);
-});
+module.exports = {
+  getPasswordForId
+}

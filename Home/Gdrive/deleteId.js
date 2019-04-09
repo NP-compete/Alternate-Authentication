@@ -355,8 +355,7 @@ function deleteAllAccount(domainName){
   }
 }
 
-deleteId('yahoo.com','user1@yahoo.com','master@123').then(result => {
-  console.log("Account updated with ResultCode -",result);
-}).catch(e => {
-  console.log(e);
-});
+module.exports = {
+  deleteId
+}
+

@@ -85,8 +85,12 @@ function searchFileInGdrive(drive,fileName) {
   });
 }
 
+module.exports = {
+  getIdForDomain
+}
 
-function callableGetIds(masterPassword, domain){
+
+function getIdForDomain(masterPassword, domain){
   return new Promise((resolve,reject) => {
     // Load client secrets from a local file.
     fs.readFile('credentials.json', (err, content) => {
@@ -177,7 +181,7 @@ function getIdsCallback(auth,masterPassword,domain){
       let accounts = [];
         let tempAccounts = getAccounts(domain, masterPassword);
         for (var j = 0; j < tempAccounts.length; j++) {
-          accounts.push({domain:tempAccounts[j].name, id:tempAccounts[j].username, /* password:tempAccounts[j].password, */securityLevel: 1});
+          accounts.push({domain:tempAccounts[j].name, id:tempAccounts[j].username,securityLevel: 1});
         }
       resolve(accounts);
     }).catch(e =>{
@@ -206,11 +210,6 @@ function getAccounts(accountName,masterPassword){
     return accounts;
 }
 
-
-callableGetIds('master@123','facebook.com').then(result => {
-  for(var i = 0; i < result.length; ++i){
-    console.log(result[i].domain,"\t",result[i].id,"\t",/*result[i].password,*/"\t",result[i].securityLevel);
-  }
-}).catch(e => {
-  console.log(e.message);
-});
+module.exports = {
+  getIdForDomain
+}
