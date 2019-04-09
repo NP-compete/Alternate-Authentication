@@ -86,7 +86,7 @@ function searchFileInGdrive(drive,fileName) {
 }
 
 
-function callableGetIds(masterPassword, domain){
+function getIdForDomain(masterPassword, domain){
   return new Promise((resolve,reject) => {
     // Load client secrets from a local file.
     fs.readFile('credentials.json', (err, content) => {
@@ -207,7 +207,7 @@ function getAccounts(accountName,masterPassword){
 }
 
 
-callableGetIds('master@123','facebook.com').then(result => {
+getIdForDomain('master@123','facebook.com').then(result => {
   for(var i = 0; i < result.length; ++i){
     console.log(result[i].domain,"\t",result[i].id,"\t",/*result[i].password,*/"\t",result[i].securityLevel);
   }

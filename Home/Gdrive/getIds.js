@@ -68,7 +68,7 @@ return new Promise((resolve,reject) => {
 }
 
 
-function callableGetIds(masterPassword){
+function getIds(masterPassword){
   return new Promise((resolve,reject) => {
     // Load client secrets from a local file.
     fs.readFile('credentials.json', (err, content) => {
@@ -198,7 +198,7 @@ function getAccounts(accountName,masterPassword){
 }
 
 
-callableGetIds('master@123').then(result => {
+getIds('master@123').then(result => {
   for(var i = 0; i < result.length; ++i){
     console.log(result[i].domain,"\t",result[i].id,"\t",result[i].password,"\t",result[i].securityLevel);
   }

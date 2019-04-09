@@ -155,8 +155,3 @@ downloadAllDomains().then(result => {
   console.log(e.message);
 });
 
-// callableCreateEntry('facebook.com','user1@facebook.com','pass_f_user1','master@123').then(result => {
-//   console.log("Account created",result);
-// }).catch(e => {
-//   console.log(e.message);
-// });
