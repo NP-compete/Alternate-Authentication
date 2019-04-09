@@ -18,7 +18,6 @@ port.onMessage.addListener(function(msg) {
 	}
 
 });
-
 //checking if user is already connected
 port.postMessage({type: "isConnected"});
 
@@ -40,14 +39,14 @@ function connect(){
 	function processRequest(e) {
 		if (xhr.readyState == 4 && xhr.status == 200) {
 			var response = xhr.responseText;
-			
+
 			if (response == "success"){
-				document.getElementById("message").innerHTML = (("Connection succesful, you will be redirected in 3 second").bold()).fontcolor("green");
+				document.getElementById("connectMessage").innerHTML = (("Connection succesful, you will be redirected in 3 second").bold()).fontcolor("green");
 				port.postMessage({type: "login"});
 				port.postMessage({type: "updateData"});
 				setTimeout(disconnectedToConnected, 3000);
 				$("#connectMessage").html("You are now connected with user: "+username);
-			}	         		        
+			}
 		}
 	}
 
@@ -55,14 +54,10 @@ function connect(){
 
 function disconnectedToConnected(){
 	$("#login").fadeOut('slow', function () {$("#connected").fadeIn('slow')});
-
 }
 
 function connectedToDisconnected(){
 	$("#connected").fadeOut('slow', function () {$("#login").fadeIn('slow')});
-
 }
 
-
-
-
+connect();

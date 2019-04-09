@@ -141,8 +141,6 @@ module.exports = {
   deleteId,
   getRecord,
   setMasterPassword,
-  createServer,
-  connect,
   loginToGoogle
 }
 
