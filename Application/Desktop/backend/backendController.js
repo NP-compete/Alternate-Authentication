@@ -51,7 +51,7 @@ async function getIds() {
   let ids = await getOnPremIds();
   ids = ids.concat(await getGoogleDriveIds());
   // ids = ids.concat(await getTrustedDeviceIds());
-  // ids = ids.concat(await getBlockchainIds());
+  ids = ids.concat(await getBlockchainIds());
 
   // let username = "testUserName@testdomain.com"
   // let domain = 'testDomain.com'

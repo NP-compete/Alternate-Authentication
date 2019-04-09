@@ -14,7 +14,7 @@ async function saveId(domain, id, pass, masterPassword) {
 
     // var cipher = crypto.createCipher('aes-256-cbc', masterPassword);
     // var encryptedPass = cipher.update(pass, 'utf8', 'hex') + cipher.final('hex');
- 
+
 
     let data = await assetManager.retrieveAssets();
     const key = domain+';'+id;
@@ -71,7 +71,7 @@ async function getAllAccountDetails(masterPassword) {
     return accountDetails;
   } catch(e) {
     return {};
-  } 
+  }
 }
 
 async function getPasswordForId(domain, id) {
@@ -89,7 +89,7 @@ async function getPasswordForId(domain, id) {
     return encryptedPassword;
   } catch(e) {
     return {};
-  }  
+  }
 }
 
 async function getIds() {
@@ -112,8 +112,8 @@ async function getIds() {
 async function getIdsForDomain(domain) {
   try {
     let ids = await getIds();
-    
-    return 
+
+    return
   } catch(e) {
     return {};
   }

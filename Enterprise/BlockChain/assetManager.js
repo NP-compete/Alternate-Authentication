@@ -2,7 +2,7 @@ const BigchainDB = require('bigchaindb-driver')
 const bip39 = require('bip39')
 const Orm = require('bigchaindb-orm').default
 
-const API_PATH = 'http://192.168.137.46:9984/api/v1/'
+const API_PATH = 'http://localhost:9984/api/v1/'
 
 const ID = { phrase: "Galileo_SIH_2019" }
 
@@ -52,4 +52,3 @@ module.exports.AssetManager = class AssetManager {
     }
 
 };
-
