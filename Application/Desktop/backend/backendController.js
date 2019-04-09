@@ -33,14 +33,11 @@ async function getOnPremIds() {
 }
 
 async function getGoogleDriveIds() {
-  return [
-    {domain: 'facebook.com', id: 'nandini.soni8@gmail.com', securityLevel: '1'},
-    {domain: 'github.com', id: 'nandini8', securityLevel: '1'}
-    ];
+  return {};
 }
 
 async function getTrustedDeviceIds() {
-
+  return {};
 }
 
 async function getBlockchainIds() {
@@ -50,22 +47,6 @@ async function getBlockchainIds() {
 async function getIds() {
   let ids = await getOnPremIds();
   ids = ids.concat(await getGoogleDriveIds());
-  // ids = ids.concat(await getTrustedDeviceIds());
-  // ids = ids.concat(await getBlockchainIds());
-
-  // let username = "testUserName@testdomain.com"
-  // let domain = 'testDomain.com'
-  // let security_lvl = 3
-
-  // let ids =  [{'domain' : domain, 'username' : username, 'security_level' : security_lvl},
-  // {'domain' : domain, 'username' : username, 'security_level' : security_lvl},
-  // {'domain' : domain, 'username' : username, 'security_level' : security_lvl},
-  // {'domain' : domain, 'username' : username, 'security_level' : security_lvl},
-  // {'domain' : domain, 'username' : username, 'security_level' : security_lvl},
-  // {'domain' : domain, 'username' : username, 'security_level' : security_lvl},
-  // {'domain' : domain, 'username' : username, 'security_level' : security_lvl},
-  // {'domain' : domain, 'username' : username, 'security_level' : security_lvl},
-  // {'domain' : domain, 'username' : username, 'security_level' : security_lvl}];
   return ids;
 }
 
@@ -73,8 +54,8 @@ async function addId(domain, id, password, securityLevel) {
   console.log("add id called", domain, id, password, securityLevel);
   switch(securityLevel) {
     case 0:
-    onPremise.saveId(domain, id, password, getMasterPassword());
-    console.log("Saved");
+      onPremise.saveId(domain, id, password, getMasterPassword());
+      console.log("Saved");
       break;
     case 1:
       break;
@@ -85,7 +66,6 @@ async function addId(domain, id, password, securityLevel) {
       console.log("Saved");
       break;
     default:
-
   }
 }
 
@@ -126,13 +106,11 @@ async function changePasswordForId(domain, id, pass, securityLevel) {
   }
 }
 
-async function createServer() {
-  return '12345';
+async function getPasswordForId(domain, id, securityLevel) {
+
 }
 
-async function connect(pin) {
-  return '12345' === pin;
-}
+
 
 async function loginToGoogle() {
 
@@ -153,6 +131,7 @@ module.exports = {
   verifyOtp,
   addId,
   getIds,
+  getPasswordForId,
   changePasswordForId,
   deleteId,
   setMasterPassword,
