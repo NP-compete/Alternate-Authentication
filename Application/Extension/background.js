@@ -1,5 +1,5 @@
 var isConnected = false;
-var username, key1, key2, tag, passwordsString;
+var passwordsString;
 
 
  chrome.extension.onConnect.addListener(function(port) {
@@ -8,7 +8,7 @@ var username, key1, key2, tag, passwordsString;
            console.log("message recieved: " + msg.type);
 
            if(msg.type == "isConnected"){
-           		if(isConnected){port.postMessage({type: "connected", username: username, key1 :key1, key2: key2});} 
+           		if(isConnected){port.postMessage({type: "connected"});} 
            		else {port.postMessage({type: "notConnected"});}
 
            }
@@ -16,45 +16,27 @@ var username, key1, key2, tag, passwordsString;
            if(msg.type == "disconnected"){
            	isConnected = false;
            }
-           
+
            if(msg.type == "login"){
-           		isConnected = true;
-           		username = msg.username;
-           		key1 = msg.key1;
-           		key2 = msg.key2;
+           	isConnected = true;
            }
 
-           if(msg.type == "checkTagOnLoad"){
-           	  if(tag=='') return;
-              if(!isTagOk(tag, passwordsString)){
-               port.postMessage({type: "tagNotOk", username:username});
-             }
-
-           }
-
-           if(msg.type == "checkTag"){
-            getPasswordsAndTag(function(response){
-
+           if(msg.type == "updateData"){
+            getPasswords(function(response){
               response = JSON.parse(response);
-               tag = response.tag;
-               passwordsString = response.passwords;
-              if(tag=='') return;
-              if(!isTagOk(tag, passwordsString)){
-               alert("WARNING!!!\nYour passwords might have been compromised.\nPlease contact us immediatly!");
-               port.postMessage({type: "tagNotOk"});
-             }
-
+              tag = response.tag;
+              passwordsString = response.passwords;
             })
           }
 
       });
  })
 
-function getPasswordsAndTag(callback){
+function getPasswords(callback){
   var xhr = new XMLHttpRequest();
   xhr.open('POST', "http://127.0.0.1:8081/", true);
   xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-  var req = 'type=getPasswordsAndTag&user='+username;
+  var req = 'type=getPasswords';
   xhr.send(req);
   xhr.onreadystatechange = processRequest;
   function processRequest(e) {
@@ -71,28 +53,4 @@ function getPasswordsAndTag(callback){
       }
     }
   }
-}
-
-function isTagOk(tag, passwordsString){
-  //generating the new tag from the given passwords string
-  //console.log(passwordsString);
-  var hmac = new sjcl.misc.hmac(key2, sjcl.hash.sha256);
-  var newTag = hmac.mac(passwordsString);
-
-  tag = tag.split(",");
-  console.log("tag is = "+tag);
-  console.log("new tag is = "+newTag);
-  newTag = sjcl.codec.base64.fromBits(newTag);
-  tag = sjcl.codec.base64.fromBits(tag);
-
-  console.log("tag is = "+tag);
-  console.log("new tag is = "+newTag);
-  //compare the tags
-  if (tag == newTag){
-    return true;
-  }
-  else{
-    return false;
-  }
-
 }
