@@ -70,9 +70,11 @@ async function getIds() {
 }
 
 async function addId(domain, id, password, securityLevel) {
+  console.log("add id called", domain, id, password, securityLevel);
   switch(securityLevel) {
     case 0:
     onPremise.saveId(domain, id, password, getMasterPassword());
+    console.log("Saved");
       break;
     case 1:
       break;
@@ -80,6 +82,7 @@ async function addId(domain, id, password, securityLevel) {
       break;
     case 3:
       await blockchain.saveId(domain, id, password);
+      console.log("Saved");
       break;
     default:
 
@@ -87,9 +90,11 @@ async function addId(domain, id, password, securityLevel) {
 }
 
 async function deleteId(domain, id, securityLevel) {
+  console.log("Delete id called", domain, id, securityLevel);
   switch(securityLevel) {
     case 0:
       onPremise.deleteAccount(domain, id);
+      console.log("Deleted");
       break;
     case 1:
       break;
@@ -97,6 +102,7 @@ async function deleteId(domain, id, securityLevel) {
       break;
     case 3:
       blockchain.deleteId(domain, id);
+      console.log("Deleted");
       break;
     default:
 
@@ -165,5 +171,3 @@ async function main() {
   console.log(ids);
 
 }
-
-main();

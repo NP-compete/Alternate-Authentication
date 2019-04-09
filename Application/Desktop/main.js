@@ -108,8 +108,8 @@ ipcMain.on('data-request', function (event, vars) {
 ipcMain.on('change-security', async (event, info) => {
 
   console.log("security changed " + JSON.stringify(info));
-  backendController.addId(info.domain, info.id, info.password, info.security);
-  backendController.deleteId(info.domain, info.id, info.security);
+  backendController.addId(info.domain, info.id, info.password, info.newSecurity);
+  backendController.deleteId(info.domain, info.id, info.oldSecurity);
 
 })
 

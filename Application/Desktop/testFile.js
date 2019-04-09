@@ -6,30 +6,30 @@ let authId;
 let test = document.getElementById("test");
 
 async function requestOtpClicked(phNo) {
-  if(phNo == ""){
-    var label = document.getElementById("wrong-otp");
-    label.innerHTML = "Invalid Phone Number";
-  }
-  else{
+  // if(phNo == ""){
+  //   var label = document.getElementById("wrong-otp");
+  //   label.innerHTML = "Invalid Phone Number";
+  // }
+  // else{
     var label = document.getElementById("wrong-otp");
     label.innerHTML = "";
     console.log('otp requested: ' + phNo);
     ipcRenderer.send('otp-requested', phNo);
-  }
+  // }
 
 }
 async function loginClicked(otp, masterPasssword) {
   console.log('login Clicked: ' + otp);
-  if(otp == "" || masterPassword == ""){
-    var label = document.getElementById("wrong-otp");
-    label.innerHTML = "Invalid OTP or Master Password";
-  }
-  else{
+  // if(otp == "" || masterPassword == ""){
+  //   var label = document.getElementById("wrong-otp");
+  //   label.innerHTML = "Invalid OTP or Master Password";
+  // }
+  // else{
     var label = document.getElementById("wrong-otp");
     label.innerHTML = "";
     ipcRenderer.send('login-clicked', {otp, masterPasssword});
     console.log('login Clicked sent: ');
-  }
+  // }
 }
 
 ipcRenderer.on('invalid-otp', (event, arg) => {
@@ -54,7 +54,12 @@ async function wrongOtp(){
 }
 
 async function dropDownChange(domain, id, security) {
-  ipcRenderer.send('change-security', {domain, id, security});
+  var id = domain + "|" + id;
+  var drpdwn = document.getElementById(id);
+  var newSecurity = drpdwn.options[drpdwn.selectedIndex].value;
+  var data = {domain: domain, id: id, oldSecurity:security, newSecurity:newSecurity};
+  console.log(data);
+  ipcRenderer.send('change-security', data);
 }
 
 async function getData() {
@@ -74,13 +79,22 @@ async function getData() {
       html += "<td>Domain: " + id.domain + "</td>";
       html += "<td>Username: " + id.id + "</td>";
       html += "<td>Security Level: " + id.securityLevel + " ";
-      html += `<td><select onchange="dropDownChange('${id.domain}, ${id.id}, ${id.securityLevel}')">`;
-      if(id.securityLevel != 0)
+      html += `<td><select id="${id.domain}|${id.id}" onchange="dropDownChange('${id.domain}', '${id.id}', '${id.securityLevel}')">`;
+      if(id.securityLevel == 0)
+        html += '<option value="0" selected>On Premise</option>'
+      else {
         html += '<option value="0">On Premise</option>'
-      if(id.securityLevel != 1)
-        html += '<option value="1">Google Drive</option>'
-      if(id.securityLevel != 3)
-        html += '<option value="3">Blockchain</option>'
+      }
+      if(id.securityLevel == 1)
+        html += '<option value="1" selected>Google Drive</option>'
+      else {
+          html += '<option value="1" >Google Drive</option>'
+        }
+      if(id.securityLevel == 3)
+        html += '<option value="3" selected>Blockchain</option>'
+        else {
+          html += '<option value="3">Blockchain</option>'
+          }
       html += '</select></td>';
 
       html += '';
