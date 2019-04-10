@@ -28,7 +28,7 @@ DownloadAllDomains.downloadAllDomains().then(result => {
 	GetIds.getIds('master@123').then(result => {
 	  for(var i = 0; i < result.length; ++i){
 	    if(result[i].domain !== d){
-	    	console.log(result[i].domain);	
+	    	console.log(result[i].domain);
 	    	d = result[i].domain;
 	    }
 	    console.log("    ",result[i].id,"\t",result[i].password,"\t",result[i].securityLevel);
@@ -45,12 +45,12 @@ DownloadAllDomains.downloadAllDomains().then(result => {
 		console.log("8. DownloadAllDomains");
 		console.log("9. CleanLocalDirectory");
 		console.log("0. Exit");
-		
+
 		const rl = readline.createInterface({
 	             input: process.stdin,
 	             output: process.stdout,
 	    });
-	   	
+
 	   	rl.question('\n Choice (1-9) ?', (choice) => {
 	 		rl.close();
 	 		console.log("your choice is :",choice);
@@ -91,7 +91,7 @@ DownloadAllDomains.downloadAllDomains().then(result => {
 
 						break;
 				case '5':
-						GetIdForDomain.getIdForDomain('master@123','facebook.com').then(result => {
+						GetIdForDomain.getIdForDomain('facebook.com', 'master@123').then(result => {
 						  for(var i = 0; i < result.length; ++i){
 						    console.log(result[i].domain,"\t",result[i].id,"\t",result[i].securityLevel);
 						  }
@@ -101,7 +101,7 @@ DownloadAllDomains.downloadAllDomains().then(result => {
 
 						break;
 				case '6':
-						GetPasswordForId.getPasswordForId('master@123','facebook.com','user2@facebook.com').then(result => {
+						GetPasswordForId.getPasswordForId('facebook.com','user2@facebook.com','master@123').then(result => {
 						    console.log(result);
 						}).catch(e => {
 						  console.log(e);
@@ -115,7 +115,7 @@ DownloadAllDomains.downloadAllDomains().then(result => {
 						  }
 						}).catch(e => {
 						  console.log(e.message);
-						});				
+						});
 						break;
 				case '8':
 						DownloadAllDomains.downloadAllDomains().then(result => {
@@ -137,7 +137,7 @@ DownloadAllDomains.downloadAllDomains().then(result => {
 						process.exit(0);
 				default:
 						console.log("Wrong choice!");
-			}		
+			}
 		});
 	}).catch(e => {
 		console.log(e.message);

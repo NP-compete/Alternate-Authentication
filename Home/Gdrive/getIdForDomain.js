@@ -90,7 +90,7 @@ module.exports = {
 }
 
 
-function getIdForDomain(masterPassword, domain){
+function getIdForDomain(domain, masterPassword){
   return new Promise((resolve,reject) => {
     // Load client secrets from a local file.
     fs.readFile('credentials.json', (err, content) => {
