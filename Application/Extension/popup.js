@@ -19,7 +19,6 @@ port.onMessage.addListener(function(msg) {
 });
 
 function connect(){
-	console.log("Abcd");
 	var username = "testUser";
 	var password = "key";
 
@@ -37,10 +36,8 @@ function connect(){
 	function processRequest(e) {
 		if (xhr.readyState == 4 && xhr.status == 200) {
 			var response = xhr.responseText;
-			console.log("Superman");
 
 			if (response == "success"){
-				console.log("Batman");
 				document.getElementById("connectMessage").innerHTML = (("Connection succesful").bold()).fontcolor("green");
 				port.postMessage({type: "login"});
 				port.postMessage({type: "updateData"});

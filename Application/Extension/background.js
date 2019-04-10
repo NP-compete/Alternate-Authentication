@@ -10,6 +10,7 @@ var passwordsString;
            if(msg.type == "isConnected"){
            		if(isConnected){port.postMessage({type: "connected"});}
            		else {port.postMessage({type: "notConnected"});}
+
            }
 
            if(msg.type == "disconnected"){

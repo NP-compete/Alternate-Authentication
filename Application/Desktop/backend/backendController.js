@@ -128,7 +128,10 @@ async function getMasterPassword() {
 }
 
 async function getRecord() {
-  return '';//get whole record, domain, password, id, security leve
+
+  let passwordStrings = await getIds();
+  console.log(passwordStrings);
+  return passwordStrings;//get whole record, domain, password, id, security leve
 }
 
 module.exports = {
@@ -150,7 +153,11 @@ async function main() {
   await addId('blockchainDomain1.com', 'account1@xyz.com', '56789', 3);
   await addId('blockchainDomain2.com', 'account2@xyz.com', 'asdsd', 3);
   console.log("saved to bcd");
-  let ids = await getIds();
-  console.log(ids);
+  // let ids = await getIds();
+  // console.log(ids);
+  var records = await getRecord();
+  console.log(records);
 
 }
+
+// main();
