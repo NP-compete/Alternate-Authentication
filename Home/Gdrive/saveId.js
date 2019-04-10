@@ -15,7 +15,6 @@
 const fs = require('fs');
 const readline = require('readline');
 const { google } = require('googleapis');
-const openurl = require('open');
 const storage = require("node-persist");
 
 //just replace this call with our security algorithm

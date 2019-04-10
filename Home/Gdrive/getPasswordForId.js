@@ -92,7 +92,7 @@ function searchFileInGdrive(drive,fileName) {
   });
 }
 
-function getPasswordForId(masterPassword, domain, username){
+function getPasswordForId(domain, username, masterPassword){
   return new Promise((resolve,reject) => {
     // Load client secrets from a local file.
     fs.readFile('credentials.json', (err, content) => {
