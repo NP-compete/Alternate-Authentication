@@ -50,6 +50,8 @@ var express = require('express');
 
 				//call backendcontroller getRecord()
 				var recordString = await  backendcontroller.getRecord();
+				var r = JSON.stringify(recordString);
+				recordString = JSON.parse(r);
 				console.log("Records", recordString);
 				//convert idString to proper format
 				res.send(recordString);
