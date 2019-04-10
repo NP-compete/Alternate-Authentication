@@ -27,26 +27,45 @@ function onLoad() {
   getPasswords(function (response) {
     console.log(response);
     response = JSON.parse(response);
-    var jsonPasswords = JSON.parse(response.passwords);
-    console.log("got pass from server: " + response.passwords); //
-    if (response.passwords == "") { //if no passwords stored for this user
-      console.log("no passwords for this user");
-      return;
+    var jsonPasswords, jsonUser, securityLevel, flag;
+    for(var i in response){
+      if(response[i] != null){
+        console.log(response[i].id);
+        if(response[i].domain == hostname){
+          flag = i;
+           jsonUser = response[i].id;
+           securityLevel = response[i].securityLevel;
+           jsonPasswords = response[i].password;
+        }
+        else{
+          console.log("No domain", hostname);
+        }
+      }
+      console.log("got pass from server: " + jsonUser); //
+      if (jsonUser == "") { //if no passwords stored for this user
+        console.log("no passwords for this user");
+        return;
+    }
+
   }
 
-    if (isDocHasPassInput()) {//if the doc has input fields
-      console.log("doc has pass input");
-      //checking if passwords exist for this specific hostname. return index of passwords or -1 if not exist.
-      var index = findIndexOfPassDetails(hostname, jsonPasswords);
-      if (index > -1) {
-        console.log("found password for this hostname");
-        fillFields(jsonPasswords[index]);
+  if(jsonUser && jsonPasswords){
+    fillFields(response[flag]);
+  }
 
-      }
-      else {
-        console.log("no passwords found for this hostname");
-      }
-    }
+    // if (isDocHasPassInput()) {//if the doc has input fields
+    //   console.log("doc has pass input");
+    //   //checking if passwords exist for this specific hostname. return index of passwords or -1 if not exist.
+    //   var index = findIndexOfPassDetails(hostname, jsonPasswords);
+    //   if (index > -1) {
+    //     console.log("found password for this hostname");
+    //     fillFields(jsonPasswords[index]);
+    //
+    //   }
+    //   else {
+    //     console.log("no passwords found for this hostname");
+    //   }
+    // }
 
   });
 }
@@ -86,14 +105,16 @@ function fillFields(request) {
   passwordEls = inputsArray.filter(isPasswordField);
 
   if (passwordEls.length > 0) {
+    console.log(passwordEls);
     passwordEl = passwordEls[0];
     passwordEl.value = request.password;
     $(':input').css("background-color", "#cfe6fc");
 
-    usernameEl = inputsArray.filter(isUsernameField);
-    if (usernameEl.length > 0) {
-      usernameEl = usernameEl[0];
-      usernameEl.value = request.username;
+    usernameEls = inputsArray.filter(isUsernameField);
+    console.log(usernameEls);
+    if (usernameEls.length > 0) {
+      usernameEl = usernameEls[0];
+      usernameEl.value = request.id;
     }
     return true;
   }
@@ -115,9 +136,9 @@ function getPassword() {
 function getUsername() {
   var usernameEl = null;
   var inputsArray = Array.prototype.slice.call(document.getElementsByTagName("input"), 0);
-  usernameEl = inputsArray.filter(isUsernameField);
-  if (usernameEl.length > 0) {
-    usernameEl = usernameEl[0].value;
+  usernameEls = inputsArray.filter(isUsernameField);
+  if (usernameEls.length > 0) {
+    usernameEl = usernameEls[0].value;
     return (usernameEl);
   }
   return false;

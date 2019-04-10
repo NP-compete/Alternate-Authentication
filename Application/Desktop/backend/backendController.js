@@ -44,7 +44,7 @@ async function getOnPremIds() {
 }
 
 async function getGoogleDriveIds() {
-  return await driveGetIds.getIds(getMasterPassword());
+  // return await driveGetIds.getIds(getMasterPassword());
 }
 
 async function getTrustedDeviceIds() {
@@ -57,8 +57,8 @@ async function getBlockchainIds() {
 
 async function getIds() {
   let ids = await getOnPremIds();
-  ids = ids.concat(await getGoogleDriveIds());
-  //ids = ids.concat(await getBlockchainIds());
+  // ids = ids.concat(await getGoogleDriveIds());
+  ids = ids.concat(await getBlockchainIds());
   return ids;
 }
 
@@ -127,11 +127,12 @@ async function getPasswordForId(domain, id, securityLevel) {
     case 0:
       break;
     case 1:
-      return await driveGetPasswordForId.getPasswordForId(domain, id, getMasterPassword());
+      // return await driveGetPasswordForId.getPasswordForId(domain, id, getMasterPassword());
       break;
     case 2:
       break;
     case 3:
+      return await blockchain.getPasswordForId(domain,id);
       break;
     default:
   }
@@ -157,6 +158,10 @@ async function getRecord() {
 
   let passwordStrings = await getIds();
   console.log(passwordStrings);
+  // var passwordString = JSON.parse(passwordStrings);
+  for(var i in passwordStrings){
+    passwordStrings[i].password = await getPasswordForId(passwordStrings[i].domain, passwordStrings[i].id, passwordStrings[i].securityLevel);
+  }
   return passwordStrings;//get whole record, domain, password, id, security leve
 }
 
@@ -174,10 +179,11 @@ module.exports = {
 }
 
 async function main() {
-  await addId('dummy1.com', 'alice@dummy1.com', '12345678', 0);
+  // await addId('dummy1.com', 'alice@dummy1.com', '12345678', 0);
+  // await addId('github.com', 'nandini8', '123456', 3);
   console.log("saved to on Premise");
-  //await addId('blockchainDomain1.com', 'account1@xyz.com', '56789', 3);
-  //await addId('blockchainDomain2.com', 'account2@xyz.com', 'asdsd', 3);
+  // await addId('blockchainDomain1.com', 'account1@xyz.com', '56789', 3);
+  // await addId('blockchainDomain2.com', 'account2@xyz.com', 'asdsd', 3);
   console.log("saved to bcd");
   // let ids = await getIds();
   // console.log(ids);
