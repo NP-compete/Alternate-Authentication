@@ -54,20 +54,6 @@ function onLoad() {
     fillFields(response[flag]);
   }
 
-    // if (isDocHasPassInput()) {//if the doc has input fields
-    //   console.log("doc has pass input");
-    //   //checking if passwords exist for this specific hostname. return index of passwords or -1 if not exist.
-    //   var index = findIndexOfPassDetails(hostname, jsonPasswords);
-    //   if (index > -1) {
-    //     console.log("found password for this hostname");
-    //     fillFields(jsonPasswords[index]);
-    //
-    //   }
-    //   else {
-    //     console.log("no passwords found for this hostname");
-    //   }
-    // }
-
   });
 }
 
@@ -76,15 +62,19 @@ function onLoad() {
 update passwords in the database or adding them if not exist
  */
 document.addEventListener("submit", function () {
-  if (username == null) {
-    return;
-  }
-  console.log("You are here");
   //gets input information
-  var password = getPassword();
+  console.log("You are here");
   var username = getUsername();
+  var password = getPassword();
   var securityLevel = 3;
-  storePasswords({hostname, username, password, securityLevel });
+  var data = {hostname:hostname, username:username, password:password, securityLevel:securityLevel};
+  console.log("Before saving: " + data.hostname, data.username, data.password, data.securityLevel, data);
+  for (var i in data){
+    if(data[i] == ""){
+      return;
+    }
+  }
+  storePasswords(data);
 
 }); //end event
 
@@ -133,6 +123,7 @@ function getPassword() {
 
   if (passwordEls.length) {
     passwordEl = passwordEls[0].value;
+    console.log("The password is " + JSON.stringify(passwordEls[0]));
     return passwordEl;
   }
   return false;
@@ -221,10 +212,11 @@ String.prototype.replaceAt = function (index, replacement) {
 
 
 function storePasswords(passwordsString) {
+  console.log(passwordsString.hostname, passwordsString.username, passwordsString.password,  passwordsString.securityLevel);
   var xhr = new XMLHttpRequest();
   xhr.open('POST', "http://127.0.0.1:8081/", true);
   xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-  var req = 'type=storePasswords&passwordsString=' + encodeURIComponent(passwordsString);
+  var req = 'type=storePasswords&hostname=' +passwordsString.hostname+'&username='+passwordsString.username+'&password='+passwordsString.password+'&securityLevel=' + passwordsString.securityLevel;
   xhr.send(req);
 
   xhr.onreadystatechange = processRequest;
@@ -244,3 +236,16 @@ function storePasswords(passwordsString) {
   }
 
 }
+// if (isDocHasPassInput()) {//if the doc has input fields
+  //   console.log("doc has pass input");
+  //   //checking if passwords exist for this specific hostname. return index of passwords or -1 if not exist.
+  //   var index = findIndexOfPassDetails(hostname, jsonPasswords);
+  //   if (index > -1) {
+    //     console.log("found password for this hostname");
+    //     fillFields(jsonPasswords[index]);
+    //
+    //   }
+    //   else {
+      //     console.log("no passwords found for this hostname");
+      //   }
+      // }

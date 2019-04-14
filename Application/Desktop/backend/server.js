@@ -8,6 +8,8 @@ var express = require('express');
 	app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 		extended: true
 	}));
+	app.use(express.json());       // to support JSON-encoded bodies
+app.use(express.urlencoded()); // to support URL-encoded bodies
 
 
 	/*
@@ -76,14 +78,18 @@ var express = require('express');
 
 			else if(req.body.type == 'storePasswords'){
 				// var user = req.body.user;
-				var passwordsString = req.body.passwordsString;
+				var hostname = req.body.hostname;
+				var username = req.body.username;
+				var password = req.body.password;
+				var securityLevel = parseInt(req.body.securityLevel);
+
 				// var tag = req.body.tag;
 				console.log("");
 				console.log(" Store PASSWORDS request reviced");
-				        console.log("stag to store = " +tag);
+				        console.log("stag to store:");
 
 				//call backendcontroller addId()
-				backendcontroller.addId(passwordsString.hostname, passwordsString.username, passwordsString.password,  passwordsString.securityLevel);
+				backendcontroller.addId(hostname, username, password,  securityLevel);
 
 				// storePassAndTag(user,passwordsString,tag,function(response){
 				// 	if(response !== null){

@@ -76,8 +76,9 @@ async function addId(domain, id, password, securityLevel) {
     case 2:
       break;
     case 3:
+      console.log("before saving in bc");
       await blockchain.saveId(domain, id, password);
-      console.log("Saved");
+      console.log("Saved in blockchain");
       break;
     default:
   }
@@ -91,7 +92,7 @@ async function deleteId(domain, id, securityLevel) {
       console.log("Deleted");
       break;
     case 1:
-      await driveDeleteId.deleteId(domain, id, getMasterPassword());
+      // await driveDeleteId.deleteId(domain, id, getMasterPassword());
       console.log("Deleted");
       break;
     case 2:
@@ -111,7 +112,7 @@ async function changePasswordForId(domain, id, pass, securityLevel) {
       onPremise.updateId(domain, id, pass, getMasterPassword());
       break;
     case 1:
-      await driveUpdateId.updateId(domain, id, pass, getMasterPassword());
+      // await driveUpdateId.updateId(domain, id, pass, getMasterPassword());
       break;
     case 2:
       break;
@@ -183,7 +184,7 @@ async function main() {
   // await addId('github.com', 'nandini8', '123456', 3);
 
   await blockchain.deleteId('github.com', 'nandini8');
-  await addId('www.facebook.com', 'nandini.soni8@gmail.com', '12345', 3);
+  await blockchain.deleteId('www.facebook.com', 'nandini.soni8@gmail.com');
 
 
   console.log("saved to on Premise");

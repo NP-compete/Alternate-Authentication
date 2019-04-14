@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "authy": "^1.4.0",
+    "body-parser": "^1.18.3",
     "csprng": "^0.1.2",
     "electron": "^4.1.4",
     "electron-context-menu": "^0.9.1",
