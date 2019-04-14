@@ -10,26 +10,26 @@ const crypto = require("crypto");
 const fs = require("fs");
 const sha1 = require('sha1');
 
-const nodePersist = require('node-persist');
+const nodePersist1 = require('node-persist');
 
 const path = require('path');
 
 const TEST_BASE_DIR = path.join(__dirname, '/onPremCred');
 
 
-storage = nodePersist.create({
+persist_storage = nodePersist1.create({
 				dir: TEST_BASE_DIR,
 				encoding: 'utf8',			 			 
 			    expiredInterval: 2 * 60 * 1000, // every 2 minutes the process will clean-up the expired cache
-			    // in some cases, you (or some other service) might add non-valid storage files to your
-			    // storage dir, i.e. Google Drive, make this true if you'd like to ignore these files and not throw an error
+			    // in some cases, you (or some other service) might add non-valid persist_storage files to your
+			    // persist_storage dir, i.e. Google Drive, make this true if you'd like to ignore these files and not throw an error
 			    forgiveParseErrors: false
 			});
 
-storage.initSync();
+persist_storage.initSync();
 
 function getAccounts(accountName,masterPassword){
-    var encryptedAccounts = storage.getItemSync(accountName);
+    var encryptedAccounts = persist_storage.getItemSync(accountName);
     var accounts = [];
     if(typeof encryptedAccounts !== 'undefined'){
         try{
@@ -45,7 +45,7 @@ function getAccounts(accountName,masterPassword){
 
 
 function getIds(masterPassword){
-    let domains  = storage.keys();
+    let domains  = persist_storage.keys();
     let accounts = [];
     for (var i = 0; i < domains.length; i++) {
       let tempAccounts = getAccounts(domains[i],masterPassword);
@@ -71,7 +71,7 @@ function getPasswordForId(name,username,masterPassword){
 
 
 function getIdsForDomain(domain,masterPassword){
-    var encryptedAccounts = storage.getItemSync(sha1(domain));
+    var encryptedAccounts = persist_storage.getItemSync(sha1(domain));
     var accounts = [];
     if(typeof encryptedAccounts !== 'undefined'){
         try{
@@ -96,7 +96,7 @@ function saveAccounts(accountName, accounts, masterPassword){
     try {
         var cipher = crypto.createCipher('aes-256-cbc', masterPassword);
         var encrypted = cipher.update(JSON.stringify(accounts), 'utf8', 'hex') + cipher.final('hex');
-        storage.setItemSync(accountName, encrypted);
+        persist_storage.setItemSync(accountName, encrypted);
         return accounts;
     } catch (e) {
         throw e;

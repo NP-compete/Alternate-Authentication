@@ -82,8 +82,7 @@ function saveId(accountName, username, password, masterPassword){
              access_type: 'offline',
              scope: SCOPES,
            });
-           openurl(authUrl);
-           //console.log('[ALERT] Authorize this app by visiting this url:', authUrl);
+           console.log('[ALERT] Authorize this app by visiting this url:', authUrl);
            const rl = readline.createInterface({
              input: process.stdin,
              output: process.stdout,

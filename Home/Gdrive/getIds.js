@@ -179,7 +179,7 @@ function getIdsCallback(auth,masterPassword){
           try{
             let tempAccounts = getAccounts(domains[i], masterPassword);
             for (var j = 0; j < tempAccounts.length; j++) {
-              accounts.push({domain:tempAccounts[j].name, id:tempAccounts[j].username,  password:tempAccounts[j].password, securityLevel: 1});
+              accounts.push({domain:tempAccounts[j].name, id:tempAccounts[j].username, securityLevel: 1});
             }
           }
           catch(e){
