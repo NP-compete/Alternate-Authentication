@@ -65,6 +65,7 @@ async function dropDownChange(domain, id, security) {
 async function getData() {
 
     let ids = await backendController.getIds();
+    console.log("ids" , ids.domain);
 
     var login = document.getElementById("login");
     login.style.display = "none";
@@ -73,7 +74,7 @@ async function getData() {
     let html = "";
 
     html = "<table class='table'><tbody>";
-    for(var id of ids) {
+    for(var id in ids) {
 
       html += '<tr>';
       html += "<td>Domain: " + id.domain + "</td>";

@@ -60,7 +60,7 @@ Add additional notes about how to deploy this on a live system
 
 * **Soham Dutta** - [NP-compete](https://github.com/NP-compete)
 * **Abhishek Verma** - [abhishek-verma](https://github.com/abhishek-verma)
-* **Nandini Soni** - [nandini8](https://github.com/nandini8)
+* **V. Nandini Soni** - [nandini8](https://github.com/nandini8)
 * **Mridul Gain** - [mridulgain](https://github.com/mridulgain)
 * **Shivam Gangwar** - [shivamHCU](https://github.com/shivamHCU)
 * **Gaurav** - [gaurav476](https://github.com/gaurav476)

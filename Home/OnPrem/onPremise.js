@@ -12,7 +12,7 @@ var crypto = require("crypto");
 var sha1 = require('sha1');
 
 //allow for variable storage --> security feature
-storage.initSync();
+storage.initSync({dir:'onPremCred'});
 
 
 function getIds(masterPassword){
@@ -64,7 +64,7 @@ function getIdsForDomain(domain,masterPassword){
             // let cipher = crypto.createDecipher('aes-256-cbc', masterPassword);
             // let decryptedAccounts = cipher.update(encryptedAccounts, 'hex', 'utf8') + cipher.final('utf8');
             // accounts = JSON.parse(decryptedAccounts);
-            accounts = JSON.parse(encrypted);
+            accounts = JSON.parse(encryptedAccounts);
         }catch(exception){
             throw new Error(exception.message);
         }
@@ -159,7 +159,7 @@ function deleteId(domain, username, masterPassword){
 
 function deleteAllAccount(domainName){
   try{
-    fs.unlinkSync('persist/'+fileName)
+    fs.unlinkSync('onPremCred/'+fileName)
     console.log(BgGreen+"[SUCCESS]"+Reset+'Domain Deleted!');
   }catch(err) {
     console.log(BgRed+"[ERROR]"+Reset+"Unable to delete the file from local directory!");

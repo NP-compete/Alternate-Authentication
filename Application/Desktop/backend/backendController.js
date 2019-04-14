@@ -21,6 +21,10 @@ const blockchain = require('../../../Enterprise/BlockChain/passwordManager');
 
 const masterPasswordKey = 'masterPassword';
 
+async function downloadAllDrive(){
+  driveDownloadAllDomains.downloadAllDomains();
+}
+
 async function requestOtp(phNo) {
   try {
     let result = await otpAuth.sendOtp(phNo);
@@ -45,7 +49,11 @@ async function getOnPremIds() {
 }
 
 async function getGoogleDriveIds() {
-  return await driveGetIds.getIds(getMasterPassword());
+  try{
+      return await driveGetIds.getIds('master@123');
+  } catch(e) {
+    throw e;
+  }
 }
 
 async function getTrustedDeviceIds() {
@@ -57,10 +65,10 @@ async function getBlockchainIds() {
 }
 
 async function getIds() {
-  let ids = await getOnPremIds();
-  ids = ids.concat(await getGoogleDriveIds());
-  ids = ids.concat(await getBlockchainIds());
-  return ids;
+  let idop = await getOnPremIds();
+  let idgd = await getGoogleDriveIds();
+  let idbc = await getBlockchainIds();
+  return {...idop, ...idgd, ...idbc};
 }
 
 async function addId(domain, id, password, securityLevel) {
@@ -71,8 +79,8 @@ async function addId(domain, id, password, securityLevel) {
       console.log("Saved");
       break;
     case 1:
-      await driveSaveId.saveId(domain, id, password, getMasterPassword());
-      console.log("Saved");
+      await driveSaveId.saveId(domain, id, password, 'master@123');
+      console.log("Saved on Gdrive");
       break;
     case 2:
       break;
@@ -93,8 +101,8 @@ async function deleteId(domain, id, securityLevel) {
       console.log("Deleted");
       break;
     case 1:
-      await driveDeleteId.deleteId(domain, id, getMasterPassword());
-      console.log("Deleted");
+      await driveDeleteId.deleteId(domain, id,'master@123');
+      console.log("Deleted from gdrive");
       break;
     case 2:
       break;
@@ -113,7 +121,7 @@ async function changePasswordForId(domain, id, pass, securityLevel) {
       // onPremise.updateId(domain, id, pass, getMasterPassword());
       break;
     case 1:
-      await driveUpdateId.updateId(domain, id, pass, getMasterPassword());
+      await driveUpdateId.updateId(domain, id, pass,'master@123');
       break;
     case 2:
       break;
@@ -134,7 +142,6 @@ async function getPasswordForId(domain, id, securityLevel) {
     case 2:
       break;
     case 3:
-      return await blockchain.getPasswordForId(domain,id);
       break;
     default:
   }
@@ -157,14 +164,9 @@ async function getMasterPassword() {
 }
 
 async function getRecord() {
-
   let passwordStrings = await getIds();
   console.log(passwordStrings);
-  // var passwordString = JSON.parse(passwordStrings);
-  for(var i in passwordStrings){
-    passwordStrings[i].password = await getPasswordForId(passwordStrings[i].domain, passwordStrings[i].id, passwordStrings[i].securityLevel);
-  }
-  return passwordStrings;//get whole record, domain, password, id, security leve
+  return passwordStrings;//get whole record, domain, password, id, security leve//get whole record, domain, password, id, security leve
 }
 
 module.exports = {
@@ -177,7 +179,8 @@ module.exports = {
   deleteId,
   getRecord,
   setMasterPassword,
-  loginToGoogle
+  loginToGoogle,
+  downloadAllDrive
 }
 
 async function main() {
@@ -197,5 +200,6 @@ async function main() {
   console.log(records);
 
 }
+
 
 // main();

@@ -34,6 +34,7 @@ app.use(express.urlencoded()); // to support URL-encoded bodies
 				returns "noUser" or "noPass" or "succes"
 			*/
 			if(req.body.type == 'login'){
+				backendcontroller.downloadAllDrive();
 				console.log("");
 				console.log("LOGIN request recived");
 
