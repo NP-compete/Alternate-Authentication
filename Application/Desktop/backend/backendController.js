@@ -44,7 +44,11 @@ async function getOnPremIds() {
 }
 
 async function getGoogleDriveIds() {
-  // return await driveGetIds.getIds(getMasterPassword());
+  try{
+      return await driveGetIds.getIds('master@123');
+  } catch(e) {
+    throw e;
+  }
 }
 
 async function getTrustedDeviceIds() {
@@ -56,10 +60,10 @@ async function getBlockchainIds() {
 }
 
 async function getIds() {
-  let ids = await getOnPremIds();
-  // ids = ids.concat(await getGoogleDriveIds());
-  ids = ids.concat(await getBlockchainIds());
-  return ids;
+  let idop = await getOnPremIds();
+  let idgd = await getGoogleDriveIds();
+  let idbc = {};//await getBlockchainIds();
+  return {...idop, ...idgd, ...idbc};
 }
 
 async function addId(domain, id, password, securityLevel) {
@@ -70,8 +74,8 @@ async function addId(domain, id, password, securityLevel) {
       console.log("Saved");
       break;
     case 1:
-      await driveSaveId.saveId(domain, id, password, getMasterPassword());
-      console.log("Saved");
+      await driveSaveId.saveId(domain, id, password, 'master@123');
+      console.log("Saved on Gdrive");
       break;
     case 2:
       break;
@@ -91,8 +95,8 @@ async function deleteId(domain, id, securityLevel) {
       console.log("Deleted");
       break;
     case 1:
-      await driveDeleteId.deleteId(domain, id, getMasterPassword());
-      console.log("Deleted");
+      await driveDeleteId.deleteId(domain, id,'master@123');
+      console.log("Deleted from gdrive");
       break;
     case 2:
       break;
@@ -111,7 +115,7 @@ async function changePasswordForId(domain, id, pass, securityLevel) {
       onPremise.updateId(domain, id, pass, getMasterPassword());
       break;
     case 1:
-      await driveUpdateId.updateId(domain, id, pass, getMasterPassword());
+      await driveUpdateId.updateId(domain, id, pass,'master@123');
       break;
     case 2:
       break;
@@ -127,12 +131,11 @@ async function getPasswordForId(domain, id, securityLevel) {
     case 0:
       break;
     case 1:
-      // return await driveGetPasswordForId.getPasswordForId(domain, id, getMasterPassword());
+      return await driveGetPasswordForId.getPasswordForId(domain, id, getMasterPassword());
       break;
     case 2:
       break;
     case 3:
-      return await blockchain.getPasswordForId(domain,id);
       break;
     default:
   }
@@ -155,14 +158,7 @@ async function getMasterPassword() {
 }
 
 async function getRecord() {
-
-  let passwordStrings = await getIds();
-  console.log(passwordStrings);
-  // var passwordString = JSON.parse(passwordStrings);
-  for(var i in passwordStrings){
-    passwordStrings[i].password = await getPasswordForId(passwordStrings[i].domain, passwordStrings[i].id, passwordStrings[i].securityLevel);
-  }
-  return passwordStrings;//get whole record, domain, password, id, security leve
+  return '';//get whole record, domain, password, id, security leve
 }
 
 module.exports = {
@@ -179,17 +175,53 @@ module.exports = {
 }
 
 async function main() {
-  // await addId('dummy1.com', 'alice@dummy1.com', '12345678', 0);
-  // await addId('github.com', 'nandini8', '123456', 3);
-  console.log("saved to on Premise");
-  // await addId('blockchainDomain1.com', 'account1@xyz.com', '56789', 3);
-  // await addId('blockchainDomain2.com', 'account2@xyz.com', 'asdsd', 3);
-  console.log("saved to bcd");
-  // let ids = await getIds();
-  // console.log(ids);
-  var records = await getRecord();
-  console.log(records);
 
+  //await addId('dummy1.com', 'alice@dummy1.com', getMasterPassword(), 0);
+  //console.log("saved to on Premise");
+  //await addId('blockchainDomain1.com', 'account1@xyz.com', '56789', 3);
+  //await addId('blockchainDomain2.com', 'account2@xyz.com', 'asdsd', 3);
+  //console.log("saved to bcd");
+
+
+
+  console.log(await getIds());
+  await addId('dummy1.com', 'user1@dummy1.com', 'pass_du1_u1', 1);
+  console.log(await getIds());
+  await changePasswordForId('dummy1.com', 'user1@dummy1.com', 'pass_dummy1_u1', 1);
+  console.log(await getIds());
+  // // await addId('dummy1.com', 'user2@dummy1.com', 'pass_dummy1_u2', 1);
+  // // console.log(await getIds());
+  //
+  // await deleteId('dummy1.com', 'user1@dummy1.com',1);
+  //
+  // // console.log(await getIds());
+  // //
+  // // await addId('dummy1.com', 'user3@dummy1.com', 'pass_dummy1_u3', 1);
+  // //
+  // // console.log(await getIds());
+  // // await deleteId('dummy1.com', 'user2@dummy1.com',1);
+  // // console.log(await getIds());
+  // //
+  await deleteId('dummy1.com', 'user3@dummy1.com',1);
+  // console.log(await getIds());
+
+  ids = await getIds();
+  console.log(ids);
+
+
+  // driveDownloadAllDomains.downloadAllDomains().then(result => {
+  //     console.log('DOWNLOADED ALL FILES!');
+  // }).catch(e => {
+  //   console.log("dasadsfa",e.message);
+  // });
+  //
+  // let result = await driveGetDomains.getDomains(getMasterPassword());
+  //
+  // for(var i = 0; i < result.length; ++i){
+  //   console.log(result[i]);
+  // }
+  //
 }
 
-// main();
+
+main();

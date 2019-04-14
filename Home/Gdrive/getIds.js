@@ -73,7 +73,6 @@ function getIds(masterPassword){
     // Load client secrets from a local file.
     fs.readFile('credentials.json', (err, content) => {
       if (err) reject(err);
-      console.log("1",content);
       // Authorize a client with credentials, then call the Google Drive API.
       authorizeForGetDomain(JSON.parse(content), getIdsCallback, masterPassword).then(accounts=>{
            resolve(accounts);
