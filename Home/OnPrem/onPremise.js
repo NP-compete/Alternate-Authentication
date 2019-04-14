@@ -1,18 +1,47 @@
 /*
- * Developer: Soham Dutta
- * Maintainer: Shivam Gangwar
- * Date: 16 Feb 2019
+ * Developer: Shivam Gangwar
+ * Maintainer: Gaurav
+ * Date: 26 Feb 2019
  */
 
-var storage = require("node-persist");
 
 //just replace this call with our security algorithm
-var crypto = require("crypto");
+const crypto = require("crypto");
+const fs = require("fs");
+const sha1 = require('sha1');
 
-var sha1 = require('sha1');
+const nodePersist = require('node-persist');
 
-//allow for variable storage --> security feature
-storage.initSync({dir:'onPremCred'});
+const path = require('path');
+
+const TEST_BASE_DIR = path.join(__dirname, '/onPremCred');
+
+
+storage = nodePersist.create({
+				dir: TEST_BASE_DIR,
+				encoding: 'utf8',			 			 
+			    expiredInterval: 2 * 60 * 1000, // every 2 minutes the process will clean-up the expired cache
+			    // in some cases, you (or some other service) might add non-valid storage files to your
+			    // storage dir, i.e. Google Drive, make this true if you'd like to ignore these files and not throw an error
+			    forgiveParseErrors: false
+			});
+
+storage.initSync();
+
+function getAccounts(accountName,masterPassword){
+    var encryptedAccounts = storage.getItemSync(accountName);
+    var accounts = [];
+    if(typeof encryptedAccounts !== 'undefined'){
+        try{
+            let cipher = crypto.createDecipher('aes-256-cbc', masterPassword);
+            let decryptedAccounts = cipher.update(encryptedAccounts, 'hex', 'utf8') + cipher.final('utf8');
+            accounts = JSON.parse(decryptedAccounts);
+        }catch(exception){
+            throw exception;
+        }
+    }
+    return accounts;
+}
 
 
 function getIds(masterPassword){
@@ -29,42 +58,26 @@ function getIds(masterPassword){
 }
 
 
-function getCredentials(name,username,masterPassword){
-    let account = [];
-    let Accounts = getAccounts(name,masterPassword);
+function getPasswordForId(name,username,masterPassword){
+    let account;
+    let Accounts = getAccounts(sha1(name),masterPassword);
     for (var j = 0; j < Accounts.length; j++) {
         if(Accounts[j].username === username){
-          account.push({domain:Accounts[j].name, id:Accounts[j].username,password:Accounts[j].password, securityLevel: 0 });
+          account = Accounts[j].password;
         }
     }
     return account;
 }
 
-function getAccounts(accountName,masterPassword){
-    var encryptedAccounts = storage.getItemSync(accountName);
-    var accounts = [];
-    if(typeof encryptedAccounts !== 'undefined'){
-        try{
-            // let cipher = crypto.createDecipher('aes-256-cbc', masterPassword);
-            // let decryptedAccounts = cipher.update(encryptedAccounts, 'hex', 'utf8') + cipher.final('utf8');
-            // accounts = JSON.parse(decryptedAccounts);
-            accounts = JSON.parse(encryptedAccounts);
-        }catch(exception){
-            throw exception;
-        }
-    }
-    return accounts;
-}
 
 function getIdsForDomain(domain,masterPassword){
-    var encryptedAccounts = storage.getItemSync(domain);
+    var encryptedAccounts = storage.getItemSync(sha1(domain));
     var accounts = [];
     if(typeof encryptedAccounts !== 'undefined'){
         try{
-            // let cipher = crypto.createDecipher('aes-256-cbc', masterPassword);
-            // let decryptedAccounts = cipher.update(encryptedAccounts, 'hex', 'utf8') + cipher.final('utf8');
-            // accounts = JSON.parse(decryptedAccounts);
-            accounts = JSON.parse(encryptedAccounts);
+            let cipher = crypto.createDecipher('aes-256-cbc', masterPassword);
+            let decryptedAccounts = cipher.update(encryptedAccounts, 'hex', 'utf8') + cipher.final('utf8');
+            accounts = JSON.parse(decryptedAccounts);
         }catch(exception){
             throw new Error(exception.message);
         }
@@ -81,9 +94,9 @@ function getIdsForDomain(domain,masterPassword){
 
 function saveAccounts(accountName, accounts, masterPassword){
     try {
-        // var cipher = crypto.createCipher('aes-256-cbc', masterPassword);
-        // var encrypted = cipher.update(JSON.stringify(accounts), 'utf8', 'hex') + cipher.final('hex');
-        storage.setItemSync(accountName, JSON.stringify(accounts));
+        var cipher = crypto.createCipher('aes-256-cbc', masterPassword);
+        var encrypted = cipher.update(JSON.stringify(accounts), 'utf8', 'hex') + cipher.final('hex');
+        storage.setItemSync(accountName, encrypted);
         return accounts;
     } catch (e) {
         throw e;
@@ -93,7 +106,7 @@ function saveAccounts(accountName, accounts, masterPassword){
 
 function saveId(domain,id,pass,masterPassword){
   try{
-        var accounts  = getAccounts(domain,masterPassword);
+        var accounts  = getAccounts(sha1(domain),masterPassword);
         var found = false;
         for(var i = 0; i < accounts.length; ++i){
             if(id === accounts[i].username){
@@ -103,7 +116,7 @@ function saveId(domain,id,pass,masterPassword){
         if(!found){
             account = {name:domain, username:id, password:pass};
             accounts.push(account);
-            return saveAccounts(domain,accounts, masterPassword);
+            return saveAccounts(sha1(domain),accounts, masterPassword);
         }else{
             return accounts;
         }
@@ -117,9 +130,9 @@ function changePasswordForId(domain, id, pass, masterPassword){
 
     account = {name:domain, username:id, password:pass};
     try{
-        let accounts  = getAccounts(domain, masterPassword);
+        let accounts  = getAccounts(sha1(domain), masterPassword);
 
-        let found = 999;
+        let found = 9999999;
         for(let i = 0; i < accounts.length; ++i){
             if(id === accounts[i].username){
                 found = i;
@@ -128,7 +141,7 @@ function changePasswordForId(domain, id, pass, masterPassword){
         if(found<accounts.length){
               accounts.splice(found,1);
               accounts.push(account);
-            return saveAccounts(domain,accounts,masterPassword);
+            return saveAccounts(sha1(domain),accounts,masterPassword);
         }else{
             return accounts;
         }
@@ -139,7 +152,7 @@ function changePasswordForId(domain, id, pass, masterPassword){
 
 function deleteId(domain, username, masterPassword){
     try{
-        let accounts  = getAccounts(domain,masterPassword);
+        let accounts  = getAccounts(sha1(domain),masterPassword);
         let found = 999;
         for(let i = 0; i < accounts.length; ++i){
             if(username === accounts[i].username){
@@ -148,7 +161,7 @@ function deleteId(domain, username, masterPassword){
         }
         if(found<accounts.length){
             accounts.splice(found,1);
-            return saveAccounts(domain,accounts,masterPassword);
+            return saveAccounts(sha1(domain),accounts,masterPassword);
         }else{
             return accounts;
         }
@@ -159,17 +172,16 @@ function deleteId(domain, username, masterPassword){
 
 function deleteAllAccount(domainName){
   try{
-    fs.unlinkSync('onPremCred/'+fileName)
-    console.log(BgGreen+"[SUCCESS]"+Reset+'Domain Deleted!');
+  	fileName = sha1(domainName);
+    fs.unlinkSync(TEST_BASE_DIR+'/'+fileName);
   }catch(err) {
-    console.log(BgRed+"[ERROR]"+Reset+"Unable to delete the file from local directory!");
+    throw err;
   }
 }
 
 module.exports = {
     getIds,
-    getCredentials,
-    getAccounts,
+    getPasswordForId,
     saveId,
     changePasswordForId,
     deleteId,

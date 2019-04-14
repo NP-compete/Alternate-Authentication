@@ -1,20 +1,9 @@
 
-/*
-const BgRed = "\x1b[41m"
-const BgGreen = "\x1b[42m"
-const BgYellow = "\x1b[43m"
-const Reset = "\x1b[0m"
-const Blink = "\x1b[5m"
-
-*/
-
-
 const readline = require('readline');
 
 const GetIds = require('./getIds');
 const CleanLocalDirectory = require('./cleanLocalDirectory');
 const DownloadAllDomains = require('./downloadAllDomains');
-const GetDomains = require('./getDomains');
 const GetPasswordForId = require('./getPasswordForId');
 const UpdateId = require('./updateId');
 const DeleteId = require('./deleteId');
@@ -25,7 +14,7 @@ const SaveId = require('./saveId');
 DownloadAllDomains.downloadAllDomains().then(result => {
 	console.clear();
 	let d = '';
-	GetIds.getIds('master@123').then(result => {
+	GetIds1.getIds('master@123').then(result => {
 	  for(var i = 0; i < result.length; ++i){
 	    if(result[i].domain !== d){
 	    	console.log(result[i].domain);
@@ -38,12 +27,11 @@ DownloadAllDomains.downloadAllDomains().then(result => {
 		console.log("1. SaveId");
 		console.log("2. DeleteId");
 		console.log("3. UpdateId");
-		console.log("4. GetDomains");
-		console.log("5. getIdForDomain");
-		console.log("6. getPasswordForId");
-		console.log("7. GetIds");
-		console.log("8. DownloadAllDomains");
-		console.log("9. CleanLocalDirectory");
+		console.log("4. getIdForDomain");
+		console.log("5. getPasswordForId");
+		console.log("6. GetIds");
+		console.log("7. DownloadAllDomains");
+		console.log("8. CleanLocalDirectory");
 		console.log("0. Exit");
 
 		const rl = readline.createInterface({
@@ -57,7 +45,7 @@ DownloadAllDomains.downloadAllDomains().then(result => {
 	    	switch(choice)
 	    	{
 				case '1' :
-						SaveId.saveId('yahoo.com','user1@yahoo.com','pass_yahoo_user1','master@123').then(result => {
+						SaveId.saveId('facebook.com','user2@facebook.com','pass_f_user2','master@123').then(result => {
 						  console.log("Account created with ResultCode -",result);
 						}).catch(e => {
 						  console.log(e.message);
@@ -65,7 +53,7 @@ DownloadAllDomains.downloadAllDomains().then(result => {
 
 						break;
 				case '2' :
-						DeleteId.deleteId('yahoo.com','user2@yahoo.com','master@123').then(result => {
+						DeleteId.deleteId('facebook.com','user1@facebook.com','master@123').then(result => {
 						  console.log("Account delete with ResultCode -",result);
 						}).catch(e => {
 						  console.log(e);
@@ -81,16 +69,6 @@ DownloadAllDomains.downloadAllDomains().then(result => {
 
 						break;
 				case '4':
-						GetDomains.getDoamins('master@123').then(result => {
-						  for(var i = 0; i < result.length; ++i){
-						    console.log(result[i]);
-						  }
-						}).catch(e => {
-						  console.log(e.message);
-						});
-
-						break;
-				case '5':
 						GetIdForDomain.getIdForDomain('facebook.com', 'master@123').then(result => {
 						  for(var i = 0; i < result.length; ++i){
 						    console.log(result[i].domain,"\t",result[i].id,"\t",result[i].securityLevel);
@@ -100,7 +78,7 @@ DownloadAllDomains.downloadAllDomains().then(result => {
 						});
 
 						break;
-				case '6':
+				case '5':
 						GetPasswordForId.getPasswordForId('facebook.com','user2@facebook.com','master@123').then(result => {
 						    console.log(result);
 						}).catch(e => {
@@ -108,7 +86,7 @@ DownloadAllDomains.downloadAllDomains().then(result => {
 						});
 
 						break;
-				case '7':
+				case '6':
 						GetIds.getIds('master@123').then(result => {
 						  for(var i = 0; i < result.length; ++i){
 						    console.log(result[i].domain,"\t",result[i].id,"\t",result[i].password,"\t",result[i].securityLevel);
@@ -117,7 +95,7 @@ DownloadAllDomains.downloadAllDomains().then(result => {
 						  console.log(e.message);
 						});
 						break;
-				case '8':
+				case '7':
 						DownloadAllDomains.downloadAllDomains().then(result => {
 						    console.log('DOWNLOADED ALL FILES!');
 						}).catch(e => {
@@ -125,7 +103,7 @@ DownloadAllDomains.downloadAllDomains().then(result => {
 						});
 
 						break;
-				case '9':
+				case '8':
 						CleanLocalDirectory.cleanLocalDirectory().then(() =>{
 						   console.log('DELETED ALL FILES ')
 						}).catch(e =>{
