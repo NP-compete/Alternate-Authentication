@@ -83,7 +83,7 @@ var express = require('express');
 				        console.log("stag to store = " +tag);
 
 				//call backendcontroller addId()
-				backendcontroller.addId(passwordsString.hostname, passwordsString.username, passwordsString.password, 1);
+				backendcontroller.addId(passwordsString.hostname, passwordsString.username, passwordsString.password,  passwordsString.securityLevel);
 
 				// storePassAndTag(user,passwordsString,tag,function(response){
 				// 	if(response !== null){

@@ -50,6 +50,7 @@ function onLoad() {
   }
 
   if(jsonUser && jsonPasswords){
+    console.log(response[flag]);
     fillFields(response[flag]);
   }
 
@@ -78,14 +79,16 @@ document.addEventListener("submit", function () {
   if (username == null) {
     return;
   }
+  console.log("You are here");
   //gets input information
   var password = getPassword();
   var username = getUsername();
+  var securityLevel = 3;
+  storePasswords({hostname, username, password, securityLevel });
 
-  storePasswords({hostname, username, password});
 }); //end event
 
-var validUsernameNames = ["email", "user", "username", "id", "emailaddress"];
+var validUsernameNames = ["email", "user", "username", "id", "emailaddress", "login", "identifier"];
 
 var isPasswordField = function (input) {
   var type = input.type.toLowerCase();
@@ -95,11 +98,13 @@ var isPasswordField = function (input) {
 var isUsernameField = function (input) {
   var name = input.name.toLowerCase();
   var type = input.type.toLowerCase();
+  console.log(name, type);
   return type === "email" || validUsernameNames.indexOf(name) > -1;
 }
 
 
 function fillFields(request) {
+  console.log(request);
   var passwordEl, usernameEl = null;
   var inputsArray = Array.prototype.slice.call(document.getElementsByTagName("input"), 0);
   passwordEls = inputsArray.filter(isPasswordField);

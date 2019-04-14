@@ -181,6 +181,11 @@ module.exports = {
 async function main() {
   // await addId('dummy1.com', 'alice@dummy1.com', '12345678', 0);
   // await addId('github.com', 'nandini8', '123456', 3);
+
+  await blockchain.deleteId('github.com', 'nandini8');
+  await addId('www.facebook.com', 'nandini.soni8@gmail.com', '12345', 3);
+
+
   console.log("saved to on Premise");
   // await addId('blockchainDomain1.com', 'account1@xyz.com', '56789', 3);
   // await addId('blockchainDomain2.com', 'account2@xyz.com', 'asdsd', 3);
