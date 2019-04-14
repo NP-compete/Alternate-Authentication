@@ -66,7 +66,7 @@ document.addEventListener("submit", function () {
   console.log("You are here");
   var username = getUsername();
   var password = getPassword();
-  var securityLevel = 3;
+  var securityLevel = 1;
   var data = {hostname:hostname, username:username, password:password, securityLevel:securityLevel};
   console.log("Before saving: " + data.hostname, data.username, data.password, data.securityLevel, data);
   for (var i in data){

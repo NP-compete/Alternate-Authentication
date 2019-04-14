@@ -40,11 +40,12 @@ async function verifyOtp(otp, authId) {
 }
 
 async function getOnPremIds() {
-  return onPremise.getIds(getMasterPassword());
+  // return onPremise.getIds(getMasterPassword());
+  return {};
 }
 
 async function getGoogleDriveIds() {
-  // return await driveGetIds.getIds(getMasterPassword());
+  return await driveGetIds.getIds(getMasterPassword());
 }
 
 async function getTrustedDeviceIds() {
@@ -57,7 +58,7 @@ async function getBlockchainIds() {
 
 async function getIds() {
   let ids = await getOnPremIds();
-  // ids = ids.concat(await getGoogleDriveIds());
+  ids = ids.concat(await getGoogleDriveIds());
   ids = ids.concat(await getBlockchainIds());
   return ids;
 }
@@ -66,7 +67,7 @@ async function addId(domain, id, password, securityLevel) {
   console.log("add id called", domain, id, password, securityLevel);
   switch(securityLevel) {
     case 0:
-      onPremise.saveId(domain, id, password, getMasterPassword());
+      // onPremise.saveId(domain, id, password, getMasterPassword());
       console.log("Saved");
       break;
     case 1:
@@ -88,11 +89,11 @@ async function deleteId(domain, id, securityLevel) {
   console.log("Delete id called", domain, id, securityLevel);
   switch(securityLevel) {
     case 0:
-      onPremise.deleteAccount(domain, id, getMasterPassword());
+      // onPremise.deleteAccount(domain, id, getMasterPassword());
       console.log("Deleted");
       break;
     case 1:
-      // await driveDeleteId.deleteId(domain, id, getMasterPassword());
+      await driveDeleteId.deleteId(domain, id, getMasterPassword());
       console.log("Deleted");
       break;
     case 2:
@@ -109,10 +110,10 @@ async function deleteId(domain, id, securityLevel) {
 async function changePasswordForId(domain, id, pass, securityLevel) {
   switch(securityLevel) {
     case 0:
-      onPremise.updateId(domain, id, pass, getMasterPassword());
+      // onPremise.updateId(domain, id, pass, getMasterPassword());
       break;
     case 1:
-      // await driveUpdateId.updateId(domain, id, pass, getMasterPassword());
+      await driveUpdateId.updateId(domain, id, pass, getMasterPassword());
       break;
     case 2:
       break;
@@ -128,7 +129,7 @@ async function getPasswordForId(domain, id, securityLevel) {
     case 0:
       break;
     case 1:
-      // return await driveGetPasswordForId.getPasswordForId(domain, id, getMasterPassword());
+      return await driveGetPasswordForId.getPasswordForId(domain, id, getMasterPassword());
       break;
     case 2:
       break;
@@ -182,7 +183,6 @@ module.exports = {
 async function main() {
   // await addId('dummy1.com', 'alice@dummy1.com', '12345678', 0);
   // await addId('github.com', 'nandini8', '123456', 3);
-
   await blockchain.deleteId('github.com', 'nandini8');
   await blockchain.deleteId('www.facebook.com', 'nandini.soni8@gmail.com');
 
