@@ -54,7 +54,7 @@ async function wrongOtp(){
 }
 
 async function dropDownChange(domain, id, security) {
-  var id = domain + "|" + id;
+  var id =  id;
   var drpdwn = document.getElementById(id);
   var newSecurity = drpdwn.options[drpdwn.selectedIndex].value;
   var data = {domain: domain, id: id, oldSecurity:security, newSecurity:newSecurity};
@@ -81,7 +81,7 @@ async function getData() {
       html += "<td>Domain: " + ids[id].domain + "</td>";
       html += "<td>Username: " + ids[id].id + "</td>";
       html += "<td>Security Level: " + ids[id].securityLevel + " ";
-      html += `<td><select id="${ids[id].domain}|${ids[id].id}" onchange="dropDownChange('${ids[id].domain}', '${ids[id].id}', '${ids[id].securityLevel}')">`;
+      html += `<td><select id="${ids[id].id}" onchange="dropDownChange('${ids[id].domain}', '${ids[id].id}', '${ids[id].securityLevel}')">`;
       if(ids[id].securityLevel == 0)
         html += '<option value="0" selected>On Premise</option>'
       else {

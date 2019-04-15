@@ -93,6 +93,13 @@ async function addId(domain, id, password, securityLevel) {
   }
 }
 
+async function addThis(domain, id, securityLevel, oldSec ){
+  console.log("add this id called", domain, id, oldSec);
+  var pass = await getPasswordForId(domain, id, oldSec);
+  console.log(pass);
+  await addId(domain, id, pass, securityLevel);
+}
+
 async function deleteId(domain, id, securityLevel) {
   console.log("Delete id called", domain, id, securityLevel);
   switch(securityLevel) {
@@ -185,7 +192,8 @@ module.exports = {
   getRecord,
   setMasterPassword,
   loginToGoogle,
-  downloadAllDrive
+  downloadAllDrive,
+  addThis
 }
 
 async function main() {
@@ -203,6 +211,7 @@ async function main() {
   // await addId('blockchainDomain2.com', 'account2@xyz.com', 'asdsd', 3);
   //console.log("saved to bcd");
 
+  await addId('www.facebook.com', 'nandini.soni8.com', '12345', 3);
   // let ids = await getIds();
   // console.log(ids);
 
