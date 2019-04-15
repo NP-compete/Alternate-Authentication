@@ -10,7 +10,6 @@ const onPremise = require('../../../Home/OnPrem/onPremise');
 const driveGetIds = require('../../../Home/Gdrive/getIds');
 const driveCleanLocalDirectory = require('../../../Home/Gdrive/cleanLocalDirectory');
 const driveDownloadAllDomains = require('../../../Home/Gdrive/downloadAllDomains');
-const driveGetDomains = require('../../../Home/Gdrive/getDomains');
 const driveGetPasswordForId = require('../../../Home/Gdrive/getPasswordForId');
 const driveUpdateId = require('../../../Home/Gdrive/updateId');
 const driveDeleteId = require('../../../Home/Gdrive/deleteId');
@@ -22,7 +21,7 @@ const blockchain = require('../../../Enterprise/BlockChain/passwordManager');
 const masterPasswordKey = 'masterPassword';
 
 async function downloadAllDrive(){
-  driveDownloadAllDomains.downloadAllDomains();
+  	driveDownloadAllDomains.downloadAllDomains();
 }
 
 async function requestOtp(phNo) {
@@ -43,9 +42,8 @@ async function verifyOtp(otp, authId) {
   }
 }
 
-async function getOnPremIds() {
-  // return onPremise.getIds(getMasterPassword());
-  return {};
+function getOnPremIds() {
+	// return onPremise.getIds('master@123');
 }
 
 async function getGoogleDriveIds() {
@@ -65,18 +63,20 @@ async function getBlockchainIds() {
 }
 
 async function getIds() {
-  let idop = await getOnPremIds();
-  let idgd = await getGoogleDriveIds();
-  let idbc = await getBlockchainIds();
-  return {...idop, ...idgd, ...idbc};
+  let ids = [];
+  // ids = ids.concat(getOnPremIds());
+  ids = ids.concat(await getGoogleDriveIds());
+  ids = ids.concat(await getBlockchainIds());
+  console.log("ids : ",ids);
+  return ids;
 }
 
 async function addId(domain, id, password, securityLevel) {
   console.log("add id called", domain, id, password, securityLevel);
   switch(securityLevel) {
     case 0:
-      // onPremise.saveId(domain, id, password, getMasterPassword());
-      console.log("Saved");
+      // onPremise.saveId(domain, id, password, 'master@123');
+      // console.log("Saved on onPremise");
       break;
     case 1:
       await driveSaveId.saveId(domain, id, password, 'master@123');
@@ -97,8 +97,8 @@ async function deleteId(domain, id, securityLevel) {
   console.log("Delete id called", domain, id, securityLevel);
   switch(securityLevel) {
     case 0:
-      // onPremise.deleteAccount(domain, id, getMasterPassword());
-      console.log("Deleted");
+      // onPremise.deleteAccount(domain, id, 'master@123');
+      // console.log("Deleted");
       break;
     case 1:
       await driveDeleteId.deleteId(domain, id,'master@123');
@@ -118,7 +118,7 @@ async function deleteId(domain, id, securityLevel) {
 async function changePasswordForId(domain, id, pass, securityLevel) {
   switch(securityLevel) {
     case 0:
-      // onPremise.updateId(domain, id, pass, getMasterPassword());
+      // onPremise.updateId(domain, id, pass, 'master@123');
       break;
     case 1:
       await driveUpdateId.updateId(domain, id, pass,'master@123');
@@ -135,13 +135,15 @@ async function changePasswordForId(domain, id, pass, securityLevel) {
 async function getPasswordForId(domain, id, securityLevel) {
   switch(securityLevel) {
     case 0:
+      // return onPremise.getPasswordForId(domain, id, 'master@123');
       break;
     case 1:
-      return await driveGetPasswordForId.getPasswordForId(domain, id, getMasterPassword());
+      return await driveGetPasswordForId.getPasswordForId(domain, id, 'master@123');
       break;
     case 2:
       break;
     case 3:
+      return await blockchain.getPasswordForId(domain,id)
       break;
     default:
   }
@@ -166,6 +168,9 @@ async function getMasterPassword() {
 async function getRecord() {
   let passwordStrings = await getIds();
   console.log("passwordStrings" , passwordStrings);
+  for(var i in passwordStrings){
+  passwordStrings[i].password = await getPasswordForId(passwordStrings[i].domain, passwordStrings[i].id, passwordStrings[i].securityLevel);
+}
   return passwordStrings;//get whole record, domain, password, id, security leve//get whole record, domain, password, id, security leve
 }
 
@@ -184,22 +189,26 @@ module.exports = {
 }
 
 async function main() {
-  // await addId('dummy1.com', 'alice@dummy1.com', '12345678', 0);
-  // await addId('github.com', 'nandini8', '123456', 3);
-  await blockchain.deleteId('github.com', 'nandini8');
-  await blockchain.deleteId('www.facebook.com', 'nandini.soni8@gmail.com');
 
+  // await driveDeleteId.deleteId('www.facebook.com', 'nandini.soni8@gmail.com','master@123');
+  // await blockchain.deleteId('www.facebook.com', 'nandini.soni8@gmail.com');
+  // await blockchain.deleteId('app.pluralsight.com', 'nandini-soni');
+  // await blockchain.deleteId('blockchainDomain1.com','account1@xyz.com');
+  // await blockchain.deleteId('blockchainDomain2.com','account2@xyz.com');
 
-  console.log("saved to on Premise");
+  // await deleteId('githubD.com', 'nandini8@git.com', 1);
+  // console.log("saved to gdrive");
+
   // await addId('blockchainDomain1.com', 'account1@xyz.com', '56789', 3);
   // await addId('blockchainDomain2.com', 'account2@xyz.com', 'asdsd', 3);
-  console.log("saved to bcd");
+  //console.log("saved to bcd");
+
   // let ids = await getIds();
   // console.log(ids);
+
   var records = await getRecord();
-  console.log(records);
+  console.log("Before: ", records);
 
 }
-
 
 // main();

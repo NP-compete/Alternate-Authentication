@@ -110,7 +110,7 @@ ipcMain.on('change-security', async (event, info) => {
   console.log("security changed " + JSON.stringify(info));
   backendController.addId(info.domain, info.id, info.password, info.newSecurity);
   backendController.deleteId(info.domain, info.id, info.oldSecurity);
-
+  console.log("Done!!");
 })
 
 ipcMain.on('invalid', (event, data) => {

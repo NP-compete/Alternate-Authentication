@@ -16,10 +16,24 @@ const fs = require('fs');
 const readline = require('readline');
 const { google } = require('googleapis');
 
-const storage = require("node-persist");
+const nodePersist = require("node-persist");
 
 //just replace this call with our security algorithm
 var crypto = require("crypto");
+
+const path = require('path');
+
+const TEST_BASE_DIR = path.join(__dirname, '/gdriveCred');
+
+
+storage = nodePersist.create({
+        dir: TEST_BASE_DIR,
+        encoding: 'utf8',            
+          expiredInterval: 2 * 60 * 1000, // every 2 minutes the process will clean-up the expired cache
+          // in some cases, you (or some other service) might add non-valid storage files to your
+          // storage dir, i.e. Google Drive, make this true if you'd like to ignore these files and not throw an error
+          forgiveParseErrors: false
+      });
 
 //allow for variable storage --> security feature
 storage.initSync();
@@ -37,7 +51,7 @@ const TOKEN_PATH = 'token.json';
 function updateId(accountName, username, password, masterPassword){
   return new Promise((resolve,reject) => {
     // Load client secrets from a local file.
-    fs.readFile('credentials.json', (err, content) => {
+    fs.readFile(__dirname + '/credentials.json', (err, content) => {
       if (err) reject(err);
       // Authorize a client with credentials, then call the Google Drive API.
       authorizeForUpdateId(JSON.parse(content), updateIdCallback, accountName, username, password, masterPassword).then(createdResult=>{
@@ -62,7 +76,7 @@ function updateId(accountName, username, password, masterPassword){
    const oAuth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uris[0]);
    return new Promise((resolve,reject) => {
        // Check if we have previously stored a token.
-       fs.readFile('persist/'+TOKEN_PATH, (err, token) => {
+       fs.readFile(__dirname + '/gdriveCred/' + TOKEN_PATH, (err, token) => {
          if (err){
            const authUrl = oAuth2Client.generateAuthUrl({
              access_type: 'offline',
@@ -81,12 +95,12 @@ function updateId(accountName, username, password, masterPassword){
 
                // Store the token to disk for later program executions
                  new Promise(function(res, rej){
-                 fs.writeFile('persist/'+TOKEN_PATH, JSON.stringify(token), (err) => {
+                 fs.writeFile(__dirname + '/gdriveCred/' + TOKEN_PATH, JSON.stringify(token), (err) => {
                      if (err) rej(err);
                      else res();
                    });
                  }).then(function(oAuth2Client){
-                       console.log("[SUCCESS] Token is stored at 'persist/token.json'");
+                       console.log("[SUCCESS] Token is stored at 'gdriveCred/token.json'");
                        //Calling main function where all the operations will be done.
                        callback(oAuth2Client, accountName, username, password, masterPassword).then(accounts=>{
                                resolve(accounts);
@@ -142,7 +156,7 @@ function uploadFileToDrive(drive,fileName){
       };
       const media = {
         mimeType: 'application/json',
-        body: fs.createReadStream('persist/'+fileName)
+        body: fs.createReadStream(__dirname + '/gdriveCred/'+fileName)
       };
       drive.files.create({
         resource: fileMetadata,
@@ -207,7 +221,7 @@ function downloadFileFromAppDataFolder(drive, fileName){
   return new Promise(function(resolve, reject){
     searchFileInGdrive(drive,fileName).then(searchResult => {
       if(searchResult !== 'FileNotFound'){
-        const dest = fs.createWriteStream('persist/'+fileName);
+        const dest = fs.createWriteStream(__dirname + '/gdriveCred/' + fileName);
 
         drive.files.get({
         spaces: 'appDataFolder',
@@ -341,10 +355,9 @@ function updateAccount(account, masterPassword){
 
 function deleteAllAccount(domainName){
   try{
-    fs.unlinkSync('persist/'+fileName)
-    console.log(BgGreen+"[SUCCESS]"+Reset+'Domain Totally Deleted!');
+    fs.unlinkSync(__dirname + '/gdriveCred/' + fileName)
   }catch(err) {
-    console.log(BgRed+"[ERROR]"+Reset+"Unable to delete the file from local directory!");
+    throw err;
   }
 }
 

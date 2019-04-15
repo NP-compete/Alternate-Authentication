@@ -60,6 +60,7 @@ async function dropDownChange(domain, id, security) {
   var data = {domain: domain, id: id, oldSecurity:security, newSecurity:newSecurity};
   console.log(data);
   ipcRenderer.send('change-security', data);
+  console.log("change security sent");
 }
 
 async function getData() {
@@ -77,21 +78,21 @@ async function getData() {
     for(var id in ids) {
 
       html += '<tr>';
-      html += "<td>Domain: " + id.domain + "</td>";
-      html += "<td>Username: " + id.id + "</td>";
-      html += "<td>Security Level: " + id.securityLevel + " ";
-      html += `<td><select id="${id.domain}|${id.id}" onchange="dropDownChange('${id.domain}', '${id.id}', '${id.securityLevel}')">`;
-      if(id.securityLevel == 0)
+      html += "<td>Domain: " + ids[id].domain + "</td>";
+      html += "<td>Username: " + ids[id].id + "</td>";
+      html += "<td>Security Level: " + ids[id].securityLevel + " ";
+      html += `<td><select id="${ids[id].domain}|${ids[id].id}" onchange="dropDownChange('${ids[id].domain}', '${ids[id].id}', '${ids[id].securityLevel}')">`;
+      if(ids[id].securityLevel == 0)
         html += '<option value="0" selected>On Premise</option>'
       else {
         html += '<option value="0">On Premise</option>'
       }
-      if(id.securityLevel == 1)
+      if(ids[id].securityLevel == 1)
         html += '<option value="1" selected>Google Drive</option>'
       else {
           html += '<option value="1" >Google Drive</option>'
         }
-      if(id.securityLevel == 3)
+      if(ids[id].securityLevel == 3)
         html += '<option value="3" selected>Blockchain</option>'
         else {
           html += '<option value="3">Blockchain</option>'
