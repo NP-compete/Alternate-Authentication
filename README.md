@@ -33,6 +33,36 @@ A step by step series of examples that tell you how to get a development env run
 
 Say what the step will be
 
+chrome->setting->extension->Load unpacked
+
+git clone
+
+git clone
+
+run server
+
+cd Alt/app/desk/back/
+node server.js
+
+Activate the extension
+
+Activate by clicking the extension icon, <u r connected>
+  
+  
+Visit any website and login to drive
+
+For enterprise
+
+start bigchaindb
+
+For desktop app 
+
+cd alt/appln/DeSKTOP/
+npm start
+
+otp login
+change security level
+
 ```
 Give the example
 ```
