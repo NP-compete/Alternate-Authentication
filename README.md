@@ -45,16 +45,23 @@ press Load unpacked and target the folder Application/Extension/
 
 #### Run server
 
-- cd Alt/app/desk/back/
+```
+npm i
 
-- node server.js
+cd Alt/app/desk/back/
+
+node server.js
+```
 
 #### Activate the extension
 
+```
 Activate by clicking the extension icon, <u r connected>
+```
 
-
-Visit any website and login to drive
+Go to one of the websites where there is an login with a username and password , fill the fields and click login.
+Load again the site and the fields will be filled in automatically
+By default they are stored in Google Drive.
 
 For enterprise
 
