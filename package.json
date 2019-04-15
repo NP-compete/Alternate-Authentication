@@ -35,8 +35,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://www.github.com/NP-compete/ReOAuth.git"
+    "url": "https://www.github.com/NP-compete/Alternate-Authentication.git"
   },
-  "author": "",
+  "author": "Soham Dutta",
   "license": "ISC"
 }
