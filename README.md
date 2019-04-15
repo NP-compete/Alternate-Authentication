@@ -67,25 +67,18 @@ By default they are stored in Google Drive.
 
 #### For enterprise
 
-#####Start Bigchaindb
+##### Start Bigchaindb
 
-For desktop app
+##### For desktop app
 
-cd alt/appln/DeSKTOP/
+```
+cd Alternate-Authentication/Application/Desktop/
 npm start
+```
 
 otp login
 change security level
 
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
 
 End with an example of getting some data out of the system or using it for a little demo
 
