@@ -9,14 +9,7 @@
     "package-mac": "electron-packager . --overwrite --asar=true --platform=darwin --arch=x64 --icon=src/assets/icons/icon3.icns --prune=true --out=dist --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"AdriApp\"",
     "package-win": "electron-packager . --overwrite --asar=true --platform=win32 --arch=ia32 --icon=src/assets/icons/icon.ico --prune=true --out=dist --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"AdriApp\""
   },
-  "repository": "https://github.com/adrianrosa/adriapp-electron",
-  "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo"
-  ],
+  "repository": "",
   "author": "GitHub",
   "license": "CC0-1.0",
   "devDependencies": {

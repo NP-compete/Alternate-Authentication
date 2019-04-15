@@ -29,9 +29,44 @@ npm install
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
+#### Clone this repo
 
-Say what the step will be
+```
+git clone https://github.com/NP-compete/Alternate-Authentication
+```
+
+#### Install the chrome extension
+
+```
+goto: chrome://extensions in the browser and enable 'developer mode'
+
+press Load unpacked and target the folder Application/Extension/
+```
+
+#### Run server
+
+- cd Alt/app/desk/back/
+
+- node server.js
+
+#### Activate the extension
+
+Activate by clicking the extension icon, <u r connected>
+
+
+Visit any website and login to drive
+
+For enterprise
+
+start bigchaindb
+
+For desktop app
+
+cd alt/appln/DeSKTOP/
+npm start
+
+otp login
+change security level
 
 ```
 Give the example
@@ -76,4 +111,3 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 * Hat tip to anyone whose code was used
 * Inspiration
 * etc
-
