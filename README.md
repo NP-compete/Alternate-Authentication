@@ -13,19 +13,17 @@
 ## Initial Idea:
 
 Implementing a new system induces high cost for any organization. So our solution upgrades the existing
-system instead of replacing it. We propose a blockchain powered decentralized, serverless, and secure approach built on top of the existing system of username and password.
+system instead of replacing it. We propose a blockchain powered decentralized, and secure approach built on top of the existing system of username and password.
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
-
-```
-npm install
-```
+1. Docker
+2, Docker-compose
+3. NodeJS
 
 ### Installing
 
@@ -33,6 +31,13 @@ npm install
 
 ```
 git clone https://github.com/NP-compete/Alternate-Authentication
+```
+
+#### Install Dependencies
+
+```
+cd Alternate-Authentication/
+npm install
 ```
 
 #### Install the chrome extension
@@ -43,47 +48,43 @@ goto: chrome://extensions in the browser and enable 'developer mode'
 press Load unpacked and target the folder Application/Extension/
 ```
 
-#### Run server
+#### Home Users
 
-- cd Alt/app/desk/back/
+##### Run server
 
-- node server.js
+```
+npm i
 
-#### Activate the extension
+cd Alternate-Authentication/Application/Desktop/backend/
 
-Activate by clicking the extension icon, <u r connected>
+node server.js
+```
 
+##### Activate the extension
 
-Visit any website and login to drive
+```
+Activate the extension by clicking the extension icon
+```
 
-For enterprise
+#### For enterprise
 
-start bigchaindb
+##### Start Bigchaindb
 
-For desktop app
+##### For desktop app
 
-cd alt/appln/DeSKTOP/
+```
+cd Alternate-Authentication/Application/Desktop/
 npm start
+```
 
 otp login
 change security level
 
-```
-Give the example
-```
 
-And repeat
+Go to one of the websites where there is an login with a username and password , fill the fields and click login.
+Load again the site and the fields will be filled in automatically
+By default they are stored in Google Drive.
 
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
-
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
 
 ## Built With
 
@@ -108,6 +109,5 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+* Dr Y V Subba Rao
+* Dr Anjenya Swami Kare
