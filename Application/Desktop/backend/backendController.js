@@ -165,7 +165,7 @@ async function getMasterPassword() {
 
 async function getRecord() {
   let passwordStrings = await getIds();
-  console.log(passwordStrings);
+  console.log("passwordStrings" , passwordStrings);
   return passwordStrings;//get whole record, domain, password, id, security leve//get whole record, domain, password, id, security leve
 }
 

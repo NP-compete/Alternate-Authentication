@@ -109,6 +109,7 @@ function authorizeForGetDomain(credentials, callback, masterPassword) {
           });
           rl.question('\n[INPUT] Enter the code from that page here: ', (code) => {
             rl.close();
+            console.log(code);
              oAuth2Client.getToken(code, (err, token) => {
               if (err) return console.error('Error retrieving access token', err);
               oAuth2Client.setCredentials(token);
