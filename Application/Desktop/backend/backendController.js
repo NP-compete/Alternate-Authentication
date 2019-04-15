@@ -43,7 +43,7 @@ async function verifyOtp(otp, authId) {
 }
 
 function getOnPremIds() {
-	// return onPremise.getIds('master@123');
+  return onPremise.getIds('master@123');
 }
 
 async function getGoogleDriveIds() {
@@ -54,9 +54,6 @@ async function getGoogleDriveIds() {
   }
 }
 
-async function getTrustedDeviceIds() {
-  return {};
-}
 
 async function getBlockchainIds() {
   return blockchain.getIds();
@@ -64,10 +61,9 @@ async function getBlockchainIds() {
 
 async function getIds() {
   let ids = [];
-  // ids = ids.concat(getOnPremIds());
+  ids = ids.concat(getOnPremIds());
   ids = ids.concat(await getGoogleDriveIds());
   ids = ids.concat(await getBlockchainIds());
-  console.log("ids : ",ids);
   return ids;
 }
 
@@ -75,8 +71,8 @@ async function addId(domain, id, password, securityLevel) {
   console.log("add id called", domain, id, password, securityLevel);
   switch(securityLevel) {
     case 0:
-      // onPremise.saveId(domain, id, password, 'master@123');
-      // console.log("Saved on onPremise");
+      onPremise.saveId(domain, id, password, 'master@123');
+      console.log("Saved on onPremise");
       break;
     case 1:
       await driveSaveId.saveId(domain, id, password, 'master@123');
@@ -106,8 +102,8 @@ async function deleteId(domain, id, securityLevel) {
   console.log("Delete id called", domain, id, securityLevel);
   switch(securityLevel) {
     case 0:
-      // onPremise.deleteAccount(domain, id, 'master@123');
-      // console.log("Deleted");
+      onPremise.deleteId(domain, id, 'master@123');
+      console.log("Deleted");
       break;
     case 1:
       await driveDeleteId.deleteId(domain, id,'master@123');
@@ -127,7 +123,7 @@ async function deleteId(domain, id, securityLevel) {
 async function changePasswordForId(domain, id, pass, securityLevel) {
   switch(securityLevel) {
     case 0:
-      // onPremise.updateId(domain, id, pass, 'master@123');
+      onPremise.changePasswordForId(domain, id, pass, 'master@123');
       break;
     case 1:
       await driveUpdateId.updateId(domain, id, pass,'master@123');
@@ -144,12 +140,10 @@ async function changePasswordForId(domain, id, pass, securityLevel) {
 async function getPasswordForId(domain, id, securityLevel) {
   switch(securityLevel) {
     case 0:
-      // return onPremise.getPasswordForId(domain, id, 'master@123');
+      return onPremise.getPasswordForId(domain, id, 'master@123');
       break;
     case 1:
-    console.log("pass");
       return await driveGetPasswordForId.getPasswordForId(domain, id, 'master@123');
-      console.log("pass");
       break;
     case 2:
       break;
@@ -180,7 +174,7 @@ async function getRecord() {
   let passwordStrings = await getIds();
   console.log("passwordStrings" , passwordStrings);
   for(var i in passwordStrings){
-  passwordStrings[i].password = await getPasswordForId(passwordStrings[i].domain, passwordStrings[i].id, passwordStrings[i].securityLevel);
+    passwordStrings[i].password = await getPasswordForId(passwordStrings[i].domain, passwordStrings[i].id, passwordStrings[i].securityLevel);
 }
   return passwordStrings;//get whole record, domain, password, id, security leve//get whole record, domain, password, id, security leve
 }
@@ -207,6 +201,12 @@ async function main() {
 
   // await addId('www.facebook.com', 'nandini.soni8@gmail.com', 'pass', 1)
   // console.log("saved to gdrive");
+
+  await addId('blockchainDomain1.com', 'account1@xyz.com', '56789', 0);
+  await addId('blockchainDomain2.com', 'account2@xyz.com', 'asdsd', 0);
+  await addId('www.github.com', 'nandini.soni8.com', '12345', 0);
+  console.log("saved to bcd");
+
 
   // await addId('blockchainDomain1.com', 'account1@xyz.com', '56789', 3);
   // await addId('blockchainDomain2.com', 'account2@xyz.com', 'asdsd', 3);
