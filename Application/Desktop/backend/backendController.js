@@ -43,7 +43,7 @@ async function verifyOtp(otp, authId) {
 }
 
 function getOnPremIds() {
-	return onPremise.getIds('master@123');
+	// return onPremise.getIds('master@123');
 }
 
 async function getGoogleDriveIds() {
@@ -96,8 +96,10 @@ async function addId(domain, id, password, securityLevel) {
 async function addThis(domain, id, securityLevel, oldSec){
   console.log("add this id called", domain, id, oldSec);
   var pass = await getPasswordForId(domain, id, oldSec);
+  await deleteId(domain, id, parseInt(oldSec));
   console.log(pass);
   await addId(domain, id, pass, securityLevel);
+  console.log("Done!!");
 }
 
 async function deleteId(domain, id, securityLevel) {
@@ -145,7 +147,9 @@ async function getPasswordForId(domain, id, securityLevel) {
       // return onPremise.getPasswordForId(domain, id, 'master@123');
       break;
     case 1:
+    console.log("pass");
       return await driveGetPasswordForId.getPasswordForId(domain, id, 'master@123');
+      console.log("pass");
       break;
     case 2:
       break;
@@ -198,10 +202,10 @@ module.exports = {
 
 async function main() {
 
-  // await addId('app.pluralsight.com', 'nandini-soni', 'pass', 0) 
+  // await addId('app.pluralsight.com', 'nandini-soni', 'pass', 0)
   // console.log('saved to onprem');
 
-  // await addId('www.facebook.com', 'nandini.soni8@gmail.com', 'pass', 1) 
+  // await addId('www.facebook.com', 'nandini.soni8@gmail.com', 'pass', 1)
   // console.log("saved to gdrive");
 
   // await addId('blockchainDomain1.com', 'account1@xyz.com', '56789', 3);
@@ -212,11 +216,11 @@ async function main() {
   // let ids = await getIds();
   // console.log(ids);
 
-  
-  // await deleteId('app.pluralsight.com', 'nandini-soni', 0) 
+
+  // await deleteId('app.pluralsight.com', 'nandini-soni', 0)
   // console.log('deleted from onprem');
 
-  // await deleteId('www.facebook.com', 'nandini.soni8@gmail.com', 1) 
+  // await deleteId('www.facebook.com', 'nandini.soni8@gmail.com', 1)
   // console.log("deleted from gdrive");
 
   // // await deleteId('blockchainDomain1.com', 'account1@xyz.com', 3);
