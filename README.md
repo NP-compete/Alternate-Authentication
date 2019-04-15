@@ -22,7 +22,7 @@ These instructions will get you a copy of the project up and running on your loc
 ### Prerequisites
 
 1. Docker
-2, Docker-compose
+2. Docker-compose
 3. NodeJS
 
 ### Installing
@@ -44,7 +44,6 @@ npm install
 
 ```
 goto: chrome://extensions in the browser and enable 'developer mode'
-
 press Load unpacked and target the folder Application/Extension/
 ```
 
@@ -53,10 +52,7 @@ press Load unpacked and target the folder Application/Extension/
 ##### Run server
 
 ```
-npm i
-
 cd Alternate-Authentication/Application/Desktop/backend/
-
 node server.js
 ```
 
@@ -70,16 +66,20 @@ Activate the extension by clicking the extension icon
 
 ##### Start Bigchaindb
 
+```
+cd Alternate-Authentication/Enterprise/BlockChain/Server/bigchaindb
+make run
+```
+
 ##### For desktop app
 
+The desktop app can be used for OTP Authentication and changing authentication level.
+
 ```
+npm i
 cd Alternate-Authentication/Application/Desktop/
 npm start
 ```
-
-otp login
-change security level
-
 
 Go to one of the websites where there is an login with a username and password , fill the fields and click login.
 Load again the site and the fields will be filled in automatically
