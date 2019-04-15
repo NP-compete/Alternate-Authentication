@@ -24,9 +24,6 @@ These instructions will get you a copy of the project up and running on your loc
 1. Docker
 2, Docker-compose
 3. NodeJS
-```
-npm install
-```
 
 ### Installing
 
@@ -34,6 +31,13 @@ npm install
 
 ```
 git clone https://github.com/NP-compete/Alternate-Authentication
+```
+
+#### Install Dependencies
+
+```
+cd Alternate-Authentication/
+npm install
 ```
 
 #### Install the chrome extension
@@ -62,10 +66,6 @@ node server.js
 Activate the extension by clicking the extension icon
 ```
 
-Go to one of the websites where there is an login with a username and password , fill the fields and click login.
-Load again the site and the fields will be filled in automatically
-By default they are stored in Google Drive.
-
 #### For enterprise
 
 ##### Start Bigchaindb
@@ -81,12 +81,10 @@ otp login
 change security level
 
 
-End with an example of getting some data out of the system or using it for a little demo
+Go to one of the websites where there is an login with a username and password , fill the fields and click login.
+Load again the site and the fields will be filled in automatically
+By default they are stored in Google Drive.
 
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
 
 ## Built With
 
@@ -111,6 +109,5 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+* Dr Y V Subba Rao
+* Dr Anjenya Swami Kare
