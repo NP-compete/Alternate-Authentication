@@ -43,7 +43,9 @@ goto: chrome://extensions in the browser and enable 'developer mode'
 press Load unpacked and target the folder Application/Extension/
 ```
 
-#### Run server
+#### Home Users
+
+##### Run server
 
 ```
 npm i
@@ -53,19 +55,19 @@ cd Alternate-Authentication/Application/Desktop/backend/
 node server.js
 ```
 
-#### Activate the extension
+##### Activate the extension
 
 ```
-Activate by clicking the extension icon, <u r connected>
+Activate the extension by clicking the extension icon
 ```
 
 Go to one of the websites where there is an login with a username and password , fill the fields and click login.
 Load again the site and the fields will be filled in automatically
 By default they are stored in Google Drive.
 
-For enterprise
+#### For enterprise
 
-start bigchaindb
+#####Start Bigchaindb
 
 For desktop app
 
