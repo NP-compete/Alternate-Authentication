@@ -52,7 +52,9 @@ press Load unpacked and target the folder Application/Extension/
 ##### Run server
 
 ```
-cd Alternate-Authentication/Application/Desktop/backend/
+cd Application/Desktop/
+npm install
+cd backend/
 node server.js
 ```
 
