@@ -48,7 +48,7 @@ press Load unpacked and target the folder Application/Extension/
 ```
 npm i
 
-cd Alt/app/desk/back/
+cd Alternate-Authentication/Application/Desktop/backend/
 
 node server.js
 ```
