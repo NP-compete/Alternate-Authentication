@@ -20,13 +20,12 @@
   "author": "GitHub",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^4.0.6"
+    "electron": "^4.1.4"
   },
   "dependencies": {
     "authy": "^1.4.0",
     "body-parser": "^1.18.3",
     "csprng": "^0.1.2",
-    "electron": "^4.1.4",
     "electron-context-menu": "^0.9.1",
     "electron-packager": "^8.7.2",
     "electron-tabs": "^0.7.1",

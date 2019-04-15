@@ -43,7 +43,7 @@ async function verifyOtp(otp, authId) {
 }
 
 function getOnPremIds() {
-	// return onPremise.getIds('master@123');
+	return onPremise.getIds('master@123');
 }
 
 async function getGoogleDriveIds() {
@@ -93,7 +93,7 @@ async function addId(domain, id, password, securityLevel) {
   }
 }
 
-async function addThis(domain, id, securityLevel, oldSec ){
+async function addThis(domain, id, securityLevel, oldSec){
   console.log("add this id called", domain, id, oldSec);
   var pass = await getPasswordForId(domain, id, oldSec);
   console.log(pass);
@@ -198,26 +198,34 @@ module.exports = {
 
 async function main() {
 
-  // await driveDeleteId.deleteId('www.facebook.com', 'nandini.soni8@gmail.com','master@123');
-  // await blockchain.deleteId('www.facebook.com', 'nandini.soni8@gmail.com');
-  // await blockchain.deleteId('app.pluralsight.com', 'nandini-soni');
-  // await blockchain.deleteId('blockchainDomain1.com','account1@xyz.com');
-  // await blockchain.deleteId('blockchainDomain2.com','account2@xyz.com');
+  // await addId('app.pluralsight.com', 'nandini-soni', 'pass', 0) 
+  // console.log('saved to onprem');
 
-  // await deleteId('githubD.com', 'nandini8@git.com', 1);
+  // await addId('www.facebook.com', 'nandini.soni8@gmail.com', 'pass', 1) 
   // console.log("saved to gdrive");
 
   // await addId('blockchainDomain1.com', 'account1@xyz.com', '56789', 3);
   // await addId('blockchainDomain2.com', 'account2@xyz.com', 'asdsd', 3);
-  //console.log("saved to bcd");
+  // await addId('www.github.com', 'nandini.soni8.com', '12345', 3);
+  // console.log("saved to bcd");
 
-  await addId('www.facebook.com', 'nandini.soni8.com', '12345', 3);
   // let ids = await getIds();
   // console.log(ids);
 
-  var records = await getRecord();
-  console.log("Before: ", records);
+  
+  // await deleteId('app.pluralsight.com', 'nandini-soni', 0) 
+  // console.log('deleted from onprem');
+
+  // await deleteId('www.facebook.com', 'nandini.soni8@gmail.com', 1) 
+  // console.log("deleted from gdrive");
+
+  // // await deleteId('blockchainDomain1.com', 'account1@xyz.com', 3);
+  // // await deleteId('blockchainDomain2.com', 'account2@xyz.com', 3);
+  // await deleteId('www.github.com', 'nandini.soni8.com', 3);
+  // console.log("deleted from bcd");
+
+  ids = await getIds();
+  // console.log(ids);
 
 }
-
-// main();
+main();
