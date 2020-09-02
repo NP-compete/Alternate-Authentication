@@ -15,7 +15,7 @@
     "electron": "^4.0.5",
     "express": "^4.16.4",
     "fs": "0.0.1-security",
-    "googleapis": "^27.0.0",
+    "googleapis": "^39.1.0",
     "hidefile": "^2.0.0",
     "ip": "^1.1.5",
     "mkdirp": "^0.5.1",
