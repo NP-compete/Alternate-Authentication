@@ -1,4 +1,4 @@
-# 🎉🎊🏆Winners of SIH 2019🎁🥇🎖️
+# 🎉🎊🏆Winners of Smart India Hackathon (World's Biggest Hackathon) 2019🎁🥇🎖️
 
 # Alternative to traditional credential based authentication
 
