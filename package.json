@@ -12,7 +12,7 @@
     "crypto-js": "^3.1.5",
     "csprng": "^0.1.2",
     "dotenv": "^6.2.0",
-    "electron": "^4.0.5",
+    "electron": "^18.3.7",
     "express": "^4.16.4",
     "fs": "0.0.1-security",
     "googleapis": "^27.0.0",
