@@ -27,7 +27,7 @@
     "sha1": "^1.1.1",
     "shamirs-secret-sharing": "^1.0.0",
     "sjcl": "^1.0.8",
-    "socket.io": "^2.2.0",
+    "socket.io": "^2.5.0",
     "yargs": "^3.32.0"
   },
   "scripts": {
