@@ -1,119 +1,294 @@
-# 🎉🎊🏆Winners of Smart India Hackathon (World's Biggest Hackathon) 2019🎁🥇🎖️
+<!-- 
+  ╔═══════════════════════════════════════════════════════════════════════════╗
+  ║  Smart India Hackathon 2019 Winner - World's Largest Hackathon            ║
+  ║  Blockchain-powered authentication that doesn't replace, but upgrades.    ║
+  ╚═══════════════════════════════════════════════════════════════════════════╝
+-->
 
-# Alternative to traditional credential based authentication
+<div align="center">
 
-**Organization:**      KG Info System Pvt. Ltd
+# 🔐 Alternate Authentication
 
-**Category:**          Software
+### *Blockchain-powered password management that upgrades your existing systems*
 
-**Technology Bucket:** Software - Web App Development
+<br>
 
-**Problem Code:**      RV3
+[![Smart India Hackathon](https://img.shields.io/badge/🏆_Smart_India_Hackathon-2019_Winner-FFD700?style=for-the-badge&labelColor=0D1117)](https://www.sih.gov.in/)
+[![World's Largest](https://img.shields.io/badge/World's_Largest-Hackathon-00D9FF?style=for-the-badge&labelColor=0D1117)](https://www.sih.gov.in/)
 
-## Working Demo
+<br>
 
-A working demo can be seen [here](https://www.youtube.com/watch?v=SF3bruNefgk&feature=youtu.be)
+[![License](https://img.shields.io/github/license/NP-compete/Alternate-Authentication?style=flat-square&color=00D9FF)](LICENSE.md)
+[![Last Commit](https://img.shields.io/github/last-commit/NP-compete/Alternate-Authentication?style=flat-square&color=00D9FF)](https://github.com/NP-compete/Alternate-Authentication/commits/main)
+[![Stars](https://img.shields.io/github/stars/NP-compete/Alternate-Authentication?style=flat-square&color=FFD700)](https://github.com/NP-compete/Alternate-Authentication/stargazers)
+[![Issues](https://img.shields.io/github/issues/NP-compete/Alternate-Authentication?style=flat-square)](https://github.com/NP-compete/Alternate-Authentication/issues)
 
-## Initial Idea:
+<br>
 
-Implementing a new system induces high cost for any organization. So our solution upgrades the existing
-system instead of replacing it. We propose a blockchain powered decentralized, and secure approach built on top of the existing system of username and password.
+[**Demo Video**](https://www.youtube.com/watch?v=SF3bruNefgk) · [**Report Bug**](https://github.com/NP-compete/Alternate-Authentication/issues/new?template=bug_report.md) · [**Request Feature**](https://github.com/NP-compete/Alternate-Authentication/issues/new?template=feature_request.md)
 
-## Getting Started
+</div>
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+---
+
+## 💡 The Problem
+
+Traditional username/password authentication is broken:
+- **Passwords get reused** across multiple sites
+- **Breaches expose millions** of credentials
+- **Replacing existing systems** is expensive and risky
+
+## 🚀 Our Solution
+
+Instead of replacing your authentication system, we **upgrade it** with:
+
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│                                                                         │
+│   ┌──────────┐     ┌──────────────┐     ┌─────────────────────────┐    │
+│   │  Chrome  │────▶│   Desktop    │────▶│   Storage Backend       │    │
+│   │Extension │     │     App      │     │                         │    │
+│   └──────────┘     └──────────────┘     │  ┌─────────────────┐    │    │
+│                                         │  │  Google Drive   │    │    │
+│   Auto-fills         Manages keys       │  │  (Home Users)   │    │    │
+│   credentials        & encryption       │  └─────────────────┘    │    │
+│                                         │                         │    │
+│                                         │  ┌─────────────────┐    │    │
+│                                         │  │  BigchainDB     │    │    │
+│                                         │  │  (Enterprise)   │    │    │
+│                                         │  └─────────────────┘    │    │
+│                                         └─────────────────────────┘    │
+│                                                                         │
+└─────────────────────────────────────────────────────────────────────────┘
+```
+
+### Key Features
+
+| Feature | Description |
+|---------|-------------|
+| **Zero Infrastructure Change** | Works on top of existing username/password systems |
+| **Decentralized Storage** | Credentials stored in Google Drive (home) or BigchainDB (enterprise) |
+| **End-to-End Encryption** | AES-256 encryption with Shamir's Secret Sharing |
+| **Cross-Platform** | Chrome extension + Electron desktop app |
+| **Blockchain-Backed** | Enterprise solution uses BigchainDB for immutable audit trails |
+
+---
+
+## 🏗️ Architecture
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                           ALTERNATE AUTHENTICATION                          │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │                        APPLICATION LAYER                            │   │
+│  │  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────────┐  │   │
+│  │  │ Chrome Extension│  │  Desktop App    │  │   OTP Manager       │  │   │
+│  │  │ • Auto-fill     │  │  • Key mgmt     │  │   • 2FA support     │  │   │
+│  │  │ • Form detect   │  │  • Encryption   │  │   • Authy integ.    │  │   │
+│  │  └─────────────────┘  └─────────────────┘  └─────────────────────┘  │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                    │                                        │
+│                                    ▼                                        │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │                        SECURITY LAYER                               │   │
+│  │  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────────┐  │   │
+│  │  │ AES-256         │  │ Shamir's Secret │  │   BIP39 Mnemonic    │  │   │
+│  │  │ Encryption      │  │ Sharing         │  │   Key Generation    │  │   │
+│  │  └─────────────────┘  └─────────────────┘  └─────────────────────┘  │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                    │                                        │
+│                                    ▼                                        │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │                        STORAGE LAYER                                │   │
+│  │  ┌───────────────────────────┐  ┌───────────────────────────────┐   │   │
+│  │  │      HOME USERS           │  │       ENTERPRISE              │   │   │
+│  │  │  ┌─────────────────────┐  │  │  ┌─────────────────────────┐  │   │   │
+│  │  │  │    Google Drive     │  │  │  │     BigchainDB          │  │   │   │
+│  │  │  │  • Personal vault   │  │  │  │  • Immutable ledger     │  │   │   │
+│  │  │  │  • OAuth 2.0        │  │  │  │  • Audit trail          │  │   │   │
+│  │  │  └─────────────────────┘  │  │  │  • Tendermint consensus │  │   │   │
+│  │  │                           │  │  └─────────────────────────┘  │   │   │
+│  │  │  ┌─────────────────────┐  │  │                               │   │   │
+│  │  │  │    On-Premise       │  │  │                               │   │   │
+│  │  │  │  • Local storage    │  │  │                               │   │   │
+│  │  │  └─────────────────────┘  │  │                               │   │   │
+│  │  └───────────────────────────┘  └───────────────────────────────┘   │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 🎬 Demo
+
+<div align="center">
+
+[![Watch the Demo](https://img.shields.io/badge/▶_Watch_Demo-YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/watch?v=SF3bruNefgk)
+
+</div>
+
+---
+
+## 🛠️ Tech Stack
+
+<div align="center">
+
+| Layer | Technologies |
+|-------|-------------|
+| **Frontend** | ![Chrome](https://img.shields.io/badge/Chrome_Extension-4285F4?style=flat-square&logo=googlechrome&logoColor=white) ![Electron](https://img.shields.io/badge/Electron-47848F?style=flat-square&logo=electron&logoColor=white) |
+| **Backend** | ![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white) ![Express](https://img.shields.io/badge/Express-000000?style=flat-square&logo=express&logoColor=white) |
+| **Blockchain** | ![BigchainDB](https://img.shields.io/badge/BigchainDB-3C3C3D?style=flat-square&logo=ethereum&logoColor=white) ![Tendermint](https://img.shields.io/badge/Tendermint-362D59?style=flat-square) |
+| **Storage** | ![Google Drive](https://img.shields.io/badge/Google_Drive-4285F4?style=flat-square&logo=googledrive&logoColor=white) |
+| **Security** | ![Crypto](https://img.shields.io/badge/AES--256-000000?style=flat-square&logo=letsencrypt&logoColor=white) ![Shamir](https://img.shields.io/badge/Shamir's_Secret_Sharing-FF6B6B?style=flat-square) |
+
+</div>
+
+---
+
+## 📦 Installation
 
 ### Prerequisites
 
-1. Docker
-2. Docker-compose
-3. NodeJS
+- [Docker](https://www.docker.com/) & [Docker Compose](https://docs.docker.com/compose/)
+- [Node.js](https://nodejs.org/) (v14+)
+- [Google Chrome](https://www.google.com/chrome/)
 
-### Installing
+### Quick Start
 
-#### Clone this repo
+```bash
+# Clone the repository
+git clone https://github.com/NP-compete/Alternate-Authentication.git
+cd Alternate-Authentication
 
-```
-git clone https://github.com/NP-compete/Alternate-Authentication
-```
-
-#### Install Dependencies
-
-```
-cd Alternate-Authentication/
+# Install dependencies
 npm install
 ```
 
-#### Install the chrome extension
+### For Home Users
 
-```
-goto: chrome://extensions in the browser and enable 'developer mode'
-press Load unpacked and target the folder Application/Extension/
-```
-
-#### Home Users
-
-##### Run server
-
-```
-cd Application/Desktop/
+```bash
+# Start the desktop backend
+cd Application/Desktop
 npm install
-cd backend/
+cd backend
 node server.js
 ```
 
-##### Activate the extension
+Then load the Chrome extension:
+1. Navigate to `chrome://extensions`
+2. Enable **Developer mode**
+3. Click **Load unpacked**
+4. Select the `Application/Extension/` folder
 
-```
-Activate the extension by clicking the extension icon
-```
+### For Enterprise
 
-#### For enterprise
-
-##### Start Bigchaindb
-
-```
-cd Alternate-Authentication/Enterprise/BlockChain/Server/bigchaindb
+```bash
+# Start BigchainDB
+cd Enterprise/BlockChain/Server/bigchaindb
 make run
-```
 
-##### For desktop app
-
-The desktop app can be used for OTP Authentication and changing authentication level.
-
-```
-npm i
-cd Alternate-Authentication/Application/Desktop/
+# Start the desktop app
+cd ../../../../Application/Desktop
+npm install
 npm start
 ```
 
-Go to one of the websites where there is an login with a username and password , fill the fields and click login.
-Load again the site and the fields will be filled in automatically
-By default they are stored in Google Drive.
+---
 
+## 📁 Project Structure
 
-## Built With
+```
+Alternate-Authentication/
+├── Application/
+│   ├── Desktop/          # Electron desktop application
+│   │   ├── backend/      # Express server for key management
+│   │   └── ...
+│   └── Extension/        # Chrome browser extension
+│       ├── background.js # Service worker
+│       ├── contentscript.js
+│       └── popup.js
+├── Enterprise/
+│   └── BlockChain/       # BigchainDB integration
+│       ├── Server/       # BigchainDB server setup
+│       ├── assetManager.js
+│       └── passwordManager.js
+├── Home/
+│   ├── Gdrive/          # Google Drive storage backend
+│   └── OnPrem/          # On-premise storage option
+└── package.json
+```
 
-* [Node JS](https://nodejs.org/en/) - The JavaScript RunTime
-* [Electron](https://electronjs.org/) - For building cross-platform desktop application
-* [BigChainDB](https://www.bigchaindb.com/) - Used to create the enterprise solution
+---
 
-## Authors
+## 🔒 Security
 
-* **Soham Dutta** - [NP-compete](https://github.com/NP-compete)
-* **Abhishek Verma** - [abhishek-verma](https://github.com/abhishek-verma)
-* **V. Nandini Soni** - [nandini8](https://github.com/nandini8)
-* **Mridul Gain** - [mridulgain](https://github.com/mridulgain)
-* **Shivam Gangwar** - [shivamHCU](https://github.com/shivamHCU)
-* **Gaurav** - [gaurav476](https://github.com/gaurav476)
+This project implements multiple layers of security:
 
-See also the list of [contributors](https://github.com/NP-compete/Alternate-Authentication/contributors) who participated in this project.
+- **AES-256 Encryption**: All credentials encrypted before storage
+- **Shamir's Secret Sharing**: Master key split across multiple shares
+- **BIP39 Mnemonics**: Human-readable key backup
+- **Zero-Knowledge**: Server never sees plaintext credentials
 
-## License
+See [SECURITY.md](SECURITY.md) for our security policy and how to report vulnerabilities.
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+---
 
-## Acknowledgments
+## 🤝 Contributing
 
-* Dr Y V Subba Rao
-* Dr Anjenya Swami Kare
+Contributions are what make the open source community amazing! Any contributions you make are **greatly appreciated**.
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
+
+---
+
+## 👥 Team
+
+<div align="center">
+
+| | | |
+|:---:|:---:|:---:|
+| [![Soham](https://img.shields.io/badge/Soham_Dutta-181717?style=for-the-badge&logo=github)](https://github.com/NP-compete) | [![Abhishek](https://img.shields.io/badge/Abhishek_Verma-181717?style=for-the-badge&logo=github)](https://github.com/abhishek-verma) | [![Nandini](https://img.shields.io/badge/V._Nandini_Soni-181717?style=for-the-badge&logo=github)](https://github.com/nandini8) |
+| [![Mridul](https://img.shields.io/badge/Mridul_Gain-181717?style=for-the-badge&logo=github)](https://github.com/mridulgain) | [![Shivam](https://img.shields.io/badge/Shivam_Gangwar-181717?style=for-the-badge&logo=github)](https://github.com/shivamHCU) | [![Gaurav](https://img.shields.io/badge/Gaurav-181717?style=for-the-badge&logo=github)](https://github.com/gaurav476) |
+
+</div>
+
+### Mentors
+
+- **Dr. Y V Subba Rao**
+- **Dr. Anjenya Swami Kare**
+
+---
+
+## 📄 License
+
+Distributed under the MIT License. See [LICENSE.md](LICENSE.md) for more information.
+
+---
+
+## 🙏 Acknowledgments
+
+- [Smart India Hackathon](https://www.sih.gov.in/) for the platform
+- [KG Info System Pvt. Ltd](https://www.kgisl.com/) for the problem statement
+- [BigchainDB](https://www.bigchaindb.com/) for the blockchain infrastructure
+- All contributors and supporters
+
+---
+
+<div align="center">
+
+**Built with determination at Smart India Hackathon 2019**
+
+*"Don't replace the system. Upgrade it."*
+
+[![Star History](https://img.shields.io/badge/⭐_Star_this_repo-if_it_helped_you!-FFD700?style=for-the-badge)](https://github.com/NP-compete/Alternate-Authentication)
+
+</div>
