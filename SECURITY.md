@@ -12,7 +12,7 @@ We take the security of Alternate Authentication seriously. If you believe you h
 
 ### Please Do
 
-- **Email us** at soham.dutta.devops@gmail.com with details of the vulnerability
+- **Open a private security advisory** on this repository with details of the vulnerability
 - **Provide** sufficient information to reproduce the issue
 - **Allow** reasonable time for us to address the issue before public disclosure
 
