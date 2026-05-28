@@ -20,7 +20,7 @@
     "body-parser": "^1.18.3",
     "csprng": "^0.1.2",
     "electron-context-menu": "^0.9.1",
-    "electron-packager": "^8.7.2",
+    "electron-packager": "^17.1.2",
     "electron-tabs": "^0.7.1",
     "express": "^4.16.4",
     "sjcl": "^1.0.8"
